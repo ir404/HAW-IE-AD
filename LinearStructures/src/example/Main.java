@@ -3,10 +3,10 @@ package example;
 public class Main {
 
 	public static void main(String[] args) {
-//		Stack names = new Stack();
-//		names.push("Ant");
-//		names.push("Bee");
-//		names.push("Cat");
+		Stack names = new Stack();
+		names.push("Ant");
+		names.push("Bee");
+		names.push("Cat");
 		
 //		System.out.println("Top of stack: " + names.top());
 //		names.pop();
