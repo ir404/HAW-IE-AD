@@ -4,10 +4,17 @@ public class Main {
 	public static void main(String[] args) {
 		System.out.println("SORTING!!");
 		int[] numbers = {9, 5, 7, 1, 6, 2, 8, 4, 2};
+		int[] numbers2 = {19, 15, 17, 11, 16, 12, 18, 14, 12};
 		display(numbers);
 		insertionSort(numbers);
 		System.out.println("After sorting:");
 		display(numbers);
+		
+		System.out.println("\n\n");
+		display(numbers2);
+		selectionSort(numbers2);
+		System.out.println("After sorting:");
+		display(numbers2);
 		
 	}
 	
