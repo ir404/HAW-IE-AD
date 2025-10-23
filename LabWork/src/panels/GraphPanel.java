@@ -1,4 +1,6 @@
-package drawingTool;
+package panels;
+
+import drawingTool.Drawing;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,19 +21,10 @@ public class GraphPanel extends JPanel {
         return scene;
     }
 
-    /**
-     * Overridden paintComponent. This is the main drawing entry point.
-     * It sets the static 'pen' (as per your structure) and then
-     * delegates all drawing logic to the Scene object.
-     */
-    @Override
+
     protected void paintComponent(Graphics pen) {
         super.paintComponent(pen);
-        Drawing.set(pen); // Set the static pen
-
-        // Delegate all drawing to the scene
-        if (scene != null) {
-            scene.draw();
-        }
+        Drawing.set(pen);
+        scene.draw();
     }
 }
