@@ -70,11 +70,6 @@ public class Scene {
         drawGraphs(yAxisOriginBase);
     }
 
-    /**
-     * Draws the X and Y axes, including tick marks and labels.
-     * @param horizontalAxisY The scrolled Y-pixel coordinate for the X-axis (0°C).
-     * @param verticalAxisX   The scrolled X-pixel coordinate for the Y-axis (Day 0).
-     */
     private void drawAxesAndMarkers(int horizontalAxisY, int verticalAxisX) {
         Drawing.pen().setColor(AXIS_COLOR);
 
