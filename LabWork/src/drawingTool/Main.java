@@ -1,6 +1,5 @@
 package drawingTool;
 
-import graphs.Graph;
 import graphs.LineGraph;
 import panels.ControlPanel;
 import panels.GraphPanel;
@@ -12,7 +11,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 public class Main extends JFrame implements ActionListener {
-    private GraphPanel graphPanel;
+    private static final long serialVersionUID = 1L;
+    
+	private GraphPanel graphPanel;
     private ControlPanel controlPanel;
 
     public Main(String title) {
@@ -60,7 +61,6 @@ public class Main extends JFrame implements ActionListener {
         addKeyBinding(panel, KeyEvent.VK_UP, "upReleased", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("UP key released");
                 graphPanel.getScene().scrollUp();
                 graphPanel.repaint();
             }
@@ -69,7 +69,6 @@ public class Main extends JFrame implements ActionListener {
         addKeyBinding(panel, KeyEvent.VK_DOWN, "downReleased", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("DOWN key released");
                 graphPanel.getScene().scrollDown();
                 graphPanel.repaint();
             }
@@ -78,7 +77,6 @@ public class Main extends JFrame implements ActionListener {
         addKeyBinding(panel, KeyEvent.VK_LEFT, "leftReleased", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("LEFT key released");
                 graphPanel.getScene().scrollLeft();
                 graphPanel.repaint();
             }
@@ -87,7 +85,6 @@ public class Main extends JFrame implements ActionListener {
         addKeyBinding(panel, KeyEvent.VK_RIGHT, "rightReleased", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("RIGHT key released");
                 graphPanel.getScene().scrollRight();
                 graphPanel.repaint();
             }
@@ -96,7 +93,6 @@ public class Main extends JFrame implements ActionListener {
         addKeyBinding(panel, KeyEvent.VK_R, "rKeyReleased", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("R key released");
                 graphPanel.getScene().resetView();
                 graphPanel.repaint();
             }

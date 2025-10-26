@@ -4,7 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 
 public class ControlPanel extends JPanel {
-    private JLabel titleLabel, graph1Label, graph2Label;
+    private static final long serialVersionUID = 1L;
+
+	private JLabel titleLabel, graph1Label, graph2Label;
     private JButton loadGraph1Btn, loadGraph2Btn, resetViewBtn;
 
     private final Color CONTROL_PANEL_COLOUR = Color.LIGHT_GRAY;
