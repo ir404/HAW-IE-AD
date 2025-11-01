@@ -35,8 +35,6 @@ public class LineGraph extends Graph {
             double y = amplitude * Math.sin(frequency * x + phase);
             dataPoints.add(y);
         }
-
-        System.out.println("generated points: " + dataPoints.size());
     }
 
     /**
