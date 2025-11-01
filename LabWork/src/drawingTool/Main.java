@@ -108,6 +108,6 @@ public class Main extends JFrame implements ActionListener {
     }
 
     public static void main(String[] args) {
-        new Main("Plotter");
+        new Main("Plotter (Myo did this)");
     }
 }
