@@ -1,6 +1,8 @@
 package panels;
 
 import drawingTool.AppFrame;
+import util.PageName;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -22,7 +24,7 @@ public abstract class ControlPanel extends JPanel {
 
         resetViewBtn = new JButton("Reset View [R]");
         backBtn = new JButton("Back to menu");
-        backBtn.addActionListener(e -> appFrame.showPage(AppFrame.MENU_PAGE));
+        backBtn.addActionListener(e -> appFrame.showPage(PageName.HOME_PAGE));
 
         initialiseDefaultComponents();
     }

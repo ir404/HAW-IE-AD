@@ -3,6 +3,7 @@ package drawingTool;
 import panels.pages.HomePage;
 import panels.pages.companyStatsPage.CompanyStatsPage;
 import panels.pages.trigPage.TrigPage;
+import util.PageName;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,10 +16,6 @@ public class AppFrame extends JFrame {
     private CompanyStatsPage companyStatsPage;
     private JPanel mainPanel;
     private CardLayout cardLayout;
-
-    public static final String MENU_PAGE = "HomePage";
-    public static final String TRIG_PAGE = "TrigPage";
-    public static final String STATS_PAGE = "StatsPage";
 
     public AppFrame(String title) {
         int screenWidth = getToolkit().getScreenSize().width;
@@ -34,9 +31,9 @@ public class AppFrame extends JFrame {
 
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);
-        mainPanel.add(homePage, MENU_PAGE);
-        mainPanel.add(trigPage, TRIG_PAGE);
-        mainPanel.add(companyStatsPage, STATS_PAGE);
+        mainPanel.add(homePage, PageName.HOME_PAGE.getValue());
+        mainPanel.add(trigPage, PageName.TRIG_PAGE.getValue());
+        mainPanel.add(companyStatsPage, PageName.COMPANY_STATS_PAGE.getValue());
 
         super.add(mainPanel);
         super.setTitle(title);
@@ -44,7 +41,7 @@ public class AppFrame extends JFrame {
         super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public void showPage(String pageName) {
-        cardLayout.show(mainPanel, pageName);
+    public void showPage(PageName pageName) {
+        cardLayout.show(mainPanel, pageName.getValue());
     }
 }
