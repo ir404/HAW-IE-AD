@@ -16,7 +16,6 @@ public class TrigPage extends JPanel implements ActionListener {
 
     public TrigPage(AppFrame appFrame, int width, int height) {
         graphPanel = new GraphPanel((int) (width * 0.80), height);
-        setupKeyBindings(graphPanel);
 
         trigPageControlPanel = new TrigPageControlPanel(appFrame);
         trigPageControlPanel.setPreferredSize(new Dimension((int) (width * 0.20), height));
@@ -39,55 +38,5 @@ public class TrigPage extends JPanel implements ActionListener {
             graphPanel.getScene().addGraph(graph);
             graphPanel.repaint();
         }
-    }
-
-    private void setupKeyBindings(GraphPanel panel) {
-        addKeyBinding(panel, KeyEvent.VK_UP, "upReleased", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                graphPanel.getScene().scrollUp();
-                graphPanel.repaint();
-            }
-        });
-
-        addKeyBinding(panel, KeyEvent.VK_DOWN, "downReleased", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                graphPanel.getScene().scrollDown();
-                graphPanel.repaint();
-            }
-        });
-
-        addKeyBinding(panel, KeyEvent.VK_LEFT, "leftReleased", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                graphPanel.getScene().scrollLeft();
-                graphPanel.repaint();
-            }
-        });
-
-        addKeyBinding(panel, KeyEvent.VK_RIGHT, "rightReleased", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                graphPanel.getScene().scrollRight();
-                graphPanel.repaint();
-            }
-        });
-
-        addKeyBinding(panel, KeyEvent.VK_R, "rKeyReleased", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                graphPanel.getScene().resetView();
-                graphPanel.repaint();
-            }
-        });
-    }
-
-    private void addKeyBinding(JComponent panel, int keyCode, String actionName, Action action) {
-        InputMap inputMap = panel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
-        ActionMap actionMap = panel.getActionMap();
-        KeyStroke keyStroke = KeyStroke.getKeyStroke(keyCode, 0, true);
-        inputMap.put(keyStroke, actionName);
-        actionMap.put(actionName, action);
     }
 }
