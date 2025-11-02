@@ -11,11 +11,23 @@ public class TrigPageControlPanel extends ControlPanel {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private JLabel titleLabel, graph1Label, graph2Label;
-    private JButton loadGraph1Btn, loadGraph2Btn;
+    private JLabel titleLabel, dataPointsLabel;
+    private JTextField dataPointsField;
+    private JRadioButton redRadioBtn;
+    private JRadioButton blueRadioBtn;
+    private ButtonGroup colorGroup;
+    private JButton generateGraphBtn;
 
     public TrigPageControlPanel(AppFrame appFrame) {
         super(appFrame);
+    }
+
+    public JButton getGenerateBtn() {
+        return generateGraphBtn;
+    }
+
+    public Color getSelectedColor() {
+        return blueRadioBtn.isSelected() ? Color.BLUE : Color.RED;
     }
 
     @Override
@@ -23,17 +35,32 @@ public class TrigPageControlPanel extends ControlPanel {
         titleLabel = new JLabel("Trig Function Controls");
         titleLabel.setFont(new Font(titleLabel.getFont().getName(), Font.BOLD, TITLE_FONT_SIZE));
 
-        graph1Label = new JLabel("LineGraph 1 (Red)");
-        graph1Label.setFont(new Font(graph1Label.getFont().getName(), Font.BOLD, BODY_FONT_SIZE));
-        loadGraph1Btn = new JButton("Generate");
+        redRadioBtn = new JRadioButton("Red Graph");
+        redRadioBtn.setFont(new Font(redRadioBtn.getFont().getName(), Font.PLAIN, BODY_FONT_SIZE));
+        redRadioBtn.setBackground(CONTROL_PANEL_COLOUR);
+        redRadioBtn.setSelected(true);
 
-        graph2Label = new JLabel("LineGraph 2 (Blue)");
-        graph2Label.setFont(new Font(graph2Label.getFont().getName(), Font.BOLD, BODY_FONT_SIZE));
-        loadGraph2Btn = new JButton("Generate");
+        blueRadioBtn = new JRadioButton("Blue Graph");
+        blueRadioBtn.setFont(new Font(blueRadioBtn.getFont().getName(), Font.PLAIN, BODY_FONT_SIZE));
+        blueRadioBtn.setBackground(CONTROL_PANEL_COLOUR);
+
+        colorGroup = new ButtonGroup();
+        colorGroup.add(redRadioBtn);
+        colorGroup.add(blueRadioBtn);
+
+        dataPointsLabel = new JLabel("Data Points (2-1000):");
+        dataPointsLabel.setFont(new Font(dataPointsLabel.getFont().getName(), Font.PLAIN, BODY_FONT_SIZE));
+
+        dataPointsField = new JTextField("50");
+        dataPointsField.setFont(new Font(dataPointsField.getFont().getName(), Font.PLAIN, BODY_FONT_SIZE));
+
+        generateGraphBtn = new JButton("Generate");
+        resetViewBtn = new JButton("Reset View [R]");
 
         Insets titleInsets = new Insets(15, 8, 15, 8);
         Insets defaultInsets = new Insets(5, 8, 5, 8);
         Insets sectionTopInsets = new Insets(15, 8, 5, 8);
+        Insets buttonTopInsets = new Insets(20, 8, 5, 8);
 
         gbc.gridy = 0;
         gbc.gridwidth = 2;
@@ -47,26 +74,64 @@ public class TrigPageControlPanel extends ControlPanel {
 
         gbc.gridy = 1;
         gbc.insets = defaultInsets;
-        add(graph1Label, gbc);
+        add(redRadioBtn, gbc);
 
         gbc.gridy = 2;
         gbc.insets = defaultInsets;
-        add(loadGraph1Btn, gbc);
+        add(blueRadioBtn, gbc);
 
         gbc.gridy = 3;
         gbc.insets = sectionTopInsets;
-        add(graph2Label, gbc);
+        add(dataPointsLabel, gbc);
 
         gbc.gridy = 4;
         gbc.insets = defaultInsets;
-        add(loadGraph2Btn, gbc);
+        add(dataPointsField, gbc);
+
+        gbc.gridy = 5;
+        gbc.insets = defaultInsets;
+        add(generateGraphBtn, gbc);
+
+        // --- Row 6: Reset Button ---
+        gbc.gridy = 6;
+        gbc.insets = buttonTopInsets;
+        add(resetViewBtn, gbc);
     }
 
-    public JButton getLoadGraph1Btn() {
-        return loadGraph1Btn;
-    }
+    public int getNumDataPoints() {
+        final int DEFAULT_POINTS = 50;
+        try {
+            int points = Integer.parseInt(dataPointsField.getText().trim());
+            if (points < 2) {
+                JOptionPane.showMessageDialog(
+                    this,
+                    "Number of points must be at least 2. Using default of " + DEFAULT_POINTS + ".",
+                    "Input Warning",
+                    JOptionPane.WARNING_MESSAGE
+                );
+                dataPointsField.setText(String.valueOf(DEFAULT_POINTS));
+                points = DEFAULT_POINTS;
+            } else if (points > 1000) {
+                JOptionPane.showMessageDialog(
+                    this,
+                    "Number of points cannot exceed 1000. Using default of " + DEFAULT_POINTS + ".",
+                    "Input Warning",
+                    JOptionPane.WARNING_MESSAGE
+                );
+                dataPointsField.setText(String.valueOf(DEFAULT_POINTS));
+                points = DEFAULT_POINTS;
+            }
+            return points;
 
-    public JButton getLoadGraph2Btn() {
-        return loadGraph2Btn;
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(
+                this,
+                "Invalid input. Please enter a whole number (e.g., '50'). Using default.",
+                "Input Error",
+                JOptionPane.ERROR_MESSAGE
+            );
+            dataPointsField.setText(String.valueOf(DEFAULT_POINTS));
+            return DEFAULT_POINTS;
+        }
     }
 }

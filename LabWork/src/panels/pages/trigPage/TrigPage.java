@@ -3,12 +3,10 @@ package panels.pages.trigPage;
 import drawingTool.AppFrame;
 import graphs.LineGraph;
 import panels.GraphPanel;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 
 public class TrigPage extends JPanel implements ActionListener {
     private GraphPanel graphPanel;
@@ -20,7 +18,7 @@ public class TrigPage extends JPanel implements ActionListener {
         trigPageControlPanel = new TrigPageControlPanel(appFrame);
         trigPageControlPanel.setPreferredSize(new Dimension((int) (width * 0.20), height));
         trigPageControlPanel.getResetViewBtn().addActionListener(this);
-        trigPageControlPanel.getLoadGraph1Btn().addActionListener(this);
+        trigPageControlPanel.getGenerateBtn().addActionListener(this);
 
         super.setLayout(new BorderLayout());
         super.add(graphPanel, BorderLayout.CENTER);
@@ -32,9 +30,12 @@ public class TrigPage extends JPanel implements ActionListener {
         if (event.getSource() == trigPageControlPanel.getResetViewBtn()) {
             graphPanel.getScene().resetView();
             graphPanel.repaint();
-        } else if (event.getSource() == trigPageControlPanel.getLoadGraph1Btn()) {
-            LineGraph graph = new LineGraph(Color.RED);
-            graph.generateData(50);
+        } else if (event.getSource() == trigPageControlPanel.getGenerateBtn()) {
+            Color selectedColor = trigPageControlPanel.getSelectedColor();
+            LineGraph graph = new LineGraph(selectedColor);
+            int numPoints = trigPageControlPanel.getNumDataPoints();
+
+            graph.generateData(numPoints);
             graphPanel.getScene().addGraph(graph);
             graphPanel.repaint();
         }
