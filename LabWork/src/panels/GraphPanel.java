@@ -19,6 +19,10 @@ public class GraphPanel extends JPanel {
         setupKeyBindings();
     }
 
+    public Scene getScene() {
+        return scene;
+    }
+
     protected void paintComponent(Graphics pen) {
         super.paintComponent(pen);
         Drawing.set(pen);
@@ -69,9 +73,5 @@ public class GraphPanel extends JPanel {
         KeyStroke keyStroke = KeyStroke.getKeyStroke(keyCode, 0, true);
         inputMap.put(keyStroke, actionName);
         actionMap.put(actionName, action);
-    }
-
-    public Scene getScene() {
-        return scene;
     }
 }

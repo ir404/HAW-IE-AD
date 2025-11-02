@@ -17,7 +17,7 @@ public class CompanyStatsPage extends JPanel {
         companyStatsPageControlPanel = new CompanyStatsPageControlPanel(appFrame);
         companyStatsPageControlPanel.setPreferredSize(new Dimension((int) (width * 0.20), height));
 //        companyStatsPageControlPanel.getResetViewBtn().addActionListener(this);
-//        companyStatsPageControlPanel.getLoadGraph1Btn().addActionListener(this);
+//        companyStatsPageControlPanel.getGenerateBtn().addActionListener(this);
 
         super.setLayout(new BorderLayout());
         super.add(graphPanel, BorderLayout.CENTER);

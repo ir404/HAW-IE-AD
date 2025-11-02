@@ -29,6 +29,10 @@ public abstract class ControlPanel extends JPanel {
         initialiseDefaultComponents();
     }
 
+    public JButton getResetViewBtn() {
+        return resetViewBtn;
+    }
+
     private void initialiseDefaultComponents() {
         GridBagConstraints gbc = new GridBagConstraints();
 
@@ -60,8 +64,4 @@ public abstract class ControlPanel extends JPanel {
     }
 
     protected abstract void addControls(GridBagConstraints gbc);
-
-    public JButton getResetViewBtn() {
-        return resetViewBtn;
-    }
 }
