@@ -1,7 +1,6 @@
 package panels;
 
 import drawingTool.Drawing;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -34,7 +33,6 @@ public class GraphPanel extends JPanel {
                 repaint();
             }
         });
-
         addKeyBinding(this, KeyEvent.VK_DOWN, "downReleased", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -42,7 +40,6 @@ public class GraphPanel extends JPanel {
                 repaint();
             }
         });
-
         addKeyBinding(this, KeyEvent.VK_LEFT, "leftReleased", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -50,7 +47,6 @@ public class GraphPanel extends JPanel {
                 repaint();
             }
         });
-
         addKeyBinding(this, KeyEvent.VK_RIGHT, "rightReleased", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -58,7 +54,6 @@ public class GraphPanel extends JPanel {
                 repaint();
             }
         });
-
         addKeyBinding(this, KeyEvent.VK_R, "rKeyReleased", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
