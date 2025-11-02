@@ -30,7 +30,7 @@ public class Main extends JFrame implements ActionListener {
         controlPanel.setPreferredSize(new Dimension((int) (frameWidth * 0.20), frameHeight));
         controlPanel.initialise();
         controlPanel.getResetViewBtn().addActionListener(this);
-        controlPanel.getGenerateGraphBtn().addActionListener(this);
+        controlPanel.getLoadGraph1Btn().addActionListener(this);
 
         setupKeyBindings(graphPanel);
 
@@ -49,11 +49,9 @@ public class Main extends JFrame implements ActionListener {
         if (event.getSource() == controlPanel.getResetViewBtn()) {
             graphPanel.getScene().resetView();
             graphPanel.repaint();
-        } else if (event.getSource() == controlPanel.getGenerateGraphBtn()) {
-        	Color selectedColor = controlPanel.getSelectedColor();
-        	LineGraph graph = new LineGraph(selectedColor);
-        	int numPoints = controlPanel.getNumDataPoints();
-            graph.generateData(numPoints);
+        } else if (event.getSource() == controlPanel.getLoadGraph1Btn()) {
+            LineGraph graph = new LineGraph(Color.RED);
+            graph.generateData(50);
             graphPanel.getScene().addGraph(graph);
             graphPanel.repaint();
         }

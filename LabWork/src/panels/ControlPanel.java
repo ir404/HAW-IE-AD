@@ -2,23 +2,12 @@ package panels;
 
 import javax.swing.*;
 import java.awt.*;
-import javax.swing.JOptionPane;
 
 public class ControlPanel extends JPanel {
     private static final long serialVersionUID = 1L;
 
-    private JLabel titleLabel;
-    private JRadioButton redRadioBtn;
-    private JRadioButton blueRadioBtn;
-    private ButtonGroup colorGroup;
-    
-    // --- ADDED ---
-    private JLabel dataPointsLabel;
-    private JTextField dataPointsField;
-    // --- END ---
-    
-    private JButton generateGraphBtn;
-    private JButton resetViewBtn;
+	private JLabel titleLabel, graph1Label, graph2Label;
+    private JButton loadGraph1Btn, loadGraph2Btn, resetViewBtn;
 
     private final Color CONTROL_PANEL_COLOUR = Color.LIGHT_GRAY;
     private final int TITLE_FONT_SIZE = 14;
@@ -35,28 +24,14 @@ public class ControlPanel extends JPanel {
         titleLabel = new JLabel("Plotter Controls");
         titleLabel.setFont(new Font(titleLabel.getFont().getName(), Font.BOLD, TITLE_FONT_SIZE));
 
-        redRadioBtn = new JRadioButton("Red Graph");
-        redRadioBtn.setFont(new Font(redRadioBtn.getFont().getName(), Font.PLAIN, BODY_FONT_SIZE));
-        redRadioBtn.setBackground(CONTROL_PANEL_COLOUR);
-        redRadioBtn.setSelected(true);
+        graph1Label = new JLabel("LineGraph 1 (Red)");
+        graph1Label.setFont(new Font(graph1Label.getFont().getName(), Font.BOLD, BODY_FONT_SIZE));
+        loadGraph1Btn = new JButton("Generate");
 
-        blueRadioBtn = new JRadioButton("Blue Graph");
-        blueRadioBtn.setFont(new Font(blueRadioBtn.getFont().getName(), Font.PLAIN, BODY_FONT_SIZE));
-        blueRadioBtn.setBackground(CONTROL_PANEL_COLOUR);
+        graph2Label = new JLabel("LineGraph 2 (Blue)");
+        graph2Label.setFont(new Font(graph2Label.getFont().getName(), Font.BOLD, BODY_FONT_SIZE));
+        loadGraph2Btn = new JButton("Generate");
 
-        colorGroup = new ButtonGroup();
-        colorGroup.add(redRadioBtn);
-        colorGroup.add(blueRadioBtn);
-
-        // --- ADDED ---
-        dataPointsLabel = new JLabel("Data Points (2-1000):");
-        dataPointsLabel.setFont(new Font(dataPointsLabel.getFont().getName(), Font.PLAIN, BODY_FONT_SIZE));
-
-        dataPointsField = new JTextField("50"); // Default value
-        dataPointsField.setFont(new Font(dataPointsField.getFont().getName(), Font.PLAIN, BODY_FONT_SIZE));
-        // --- END ---
-
-        generateGraphBtn = new JButton("Generate");
         resetViewBtn = new JButton("Reset View [R]");
     }
 
@@ -65,7 +40,7 @@ public class ControlPanel extends JPanel {
 
         Insets titleInsets = new Insets(15, 8, 15, 8);
         Insets defaultInsets = new Insets(5, 8, 5, 8);
-        Insets sectionTopInsets = new Insets(15, 8, 5, 8); // For spacing
+        Insets sectionTopInsets = new Insets(15, 8, 5, 8);
         Insets buttonTopInsets = new Insets(20, 8, 5, 8);
 
         // --- Row 0: Title Label ---
@@ -81,38 +56,32 @@ public class ControlPanel extends JPanel {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.LINE_START;
 
-        // --- Row 1: Red Radio Button ---
+        // --- Row 1: LineGraph 1 Title ---
         gbc.gridy = 1;
         gbc.insets = defaultInsets;
-        add(redRadioBtn, gbc);
+        add(graph1Label, gbc);
 
-        // --- Row 2: Blue Radio Button ---
+        // --- Row 2: LineGraph 1 Button ---
         gbc.gridy = 2;
         gbc.insets = defaultInsets;
-        add(blueRadioBtn, gbc);
+        add(loadGraph1Btn, gbc);
 
-        // --- Row 3: Data Points Label (ADDED) ---
+        // --- Row 3: LineGraph 2 Title ---
         gbc.gridy = 3;
-        gbc.insets = sectionTopInsets; // Add space above
-        add(dataPointsLabel, gbc);
+        gbc.insets = sectionTopInsets;
+        add(graph2Label, gbc);
 
-        // --- Row 4: Data Points Field (ADDED) ---
+        // --- Row 4: LineGraph 2 Button ---
         gbc.gridy = 4;
         gbc.insets = defaultInsets;
-        add(dataPointsField, gbc);
+        add(loadGraph2Btn, gbc);
 
-        // --- Row 5: Generate Button ---
-        gbc.gridy = 5; // (was 3)
-        gbc.insets = defaultInsets;
-        add(generateGraphBtn, gbc);
-
-        // --- Row 6: Reset Button ---
-        gbc.gridy = 6; // (was 4)
+        gbc.gridy = 5;
         gbc.insets = buttonTopInsets;
         add(resetViewBtn, gbc);
 
         // --- Spacer ---
-        gbc.gridy = 7; // (was 5)
+        gbc.gridy = 6;
         gbc.weighty = 1.0;
         gbc.fill = GridBagConstraints.BOTH;
         JPanel spacer = new JPanel();
@@ -124,66 +93,7 @@ public class ControlPanel extends JPanel {
         return resetViewBtn;
     }
 
-    public JButton getGenerateGraphBtn() {
-        return generateGraphBtn;
+    public JButton getLoadGraph1Btn() {
+        return loadGraph1Btn;
     }
-
-    public Color getSelectedColor() {
-        if (blueRadioBtn.isSelected()) {
-            return Color.BLUE;
-        } else {
-            return Color.RED;
-        }
-    }
-
- // --- REPLACED: Method to get data points safely ---
-    public int getNumDataPoints() {
-        final int DEFAULT_POINTS = 50;
-        try {
-            // Read the text and convert it to an integer
-            int points = Integer.parseInt(dataPointsField.getText().trim()); // .trim() removes spaces
-
-            // Check 1: Out of bounds (too low)
-            if (points < 2) {
-                // Show a warning dialog
-                JOptionPane.showMessageDialog(
-                        this, // 'this' refers to the ControlPanel, centering the dialog
-                        "Number of points must be at least 2. Using default of " + DEFAULT_POINTS + ".",
-                        "Input Warning", // Title of the dialog
-                        JOptionPane.WARNING_MESSAGE);
-                
-                dataPointsField.setText(String.valueOf(DEFAULT_POINTS)); // Reset text
-                return DEFAULT_POINTS; // Return a safe default
-            }
-            
-            // Check 2: Out of bounds (too high)
-            if (points > 1000) { // Safety limit
-                // Show a warning dialog
-                JOptionPane.showMessageDialog(
-                        this,
-                        "Number of points cannot exceed 1000. Using default of " + DEFAULT_POINTS + ".",
-                        "Input Warning",
-                        JOptionPane.WARNING_MESSAGE);
-                
-                dataPointsField.setText(String.valueOf(DEFAULT_POINTS)); // Reset text
-                return DEFAULT_POINTS; // Return a safe default
-            }
-            
-            return points; // All good, return the user's number
-
-        } catch (NumberFormatException e) {
-            // Check 3: Not a number (e.g., "abc" or empty)
-            
-            // Show an error dialog
-            JOptionPane.showMessageDialog(
-                    this,
-                    "Invalid input. Please enter a whole number (e.g., '50'). Using default.",
-                    "Input Error",
-                    JOptionPane.ERROR_MESSAGE); // Use a more serious icon
-
-            dataPointsField.setText(String.valueOf(DEFAULT_POINTS)); // Reset text
-            return DEFAULT_POINTS; // Return a safe default
-        }
-    }
-    // --- END ---
 }
