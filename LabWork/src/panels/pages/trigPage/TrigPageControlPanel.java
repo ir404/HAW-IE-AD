@@ -110,7 +110,7 @@ public class TrigPageControlPanel extends ControlPanel {
                     JOptionPane.WARNING_MESSAGE
                 );
                 dataPointsField.setText(String.valueOf(DEFAULT_POINTS));
-                points = DEFAULT_POINTS;
+                //points = DEFAULT_POINTS;
             } else if (points > 1000) {
                 JOptionPane.showMessageDialog(
                     this,
@@ -119,7 +119,7 @@ public class TrigPageControlPanel extends ControlPanel {
                     JOptionPane.WARNING_MESSAGE
                 );
                 dataPointsField.setText(String.valueOf(DEFAULT_POINTS));
-                points = DEFAULT_POINTS;
+                points = 0;
             }
             return points;
 
@@ -131,7 +131,7 @@ public class TrigPageControlPanel extends ControlPanel {
                 JOptionPane.ERROR_MESSAGE
             );
             dataPointsField.setText(String.valueOf(DEFAULT_POINTS));
-            return DEFAULT_POINTS;
+            return 0;
         }
     }
 }

@@ -51,8 +51,8 @@ public class LineGraph extends Graph {
         Drawing.pen().setColor(getColour());
 
         // Calculate the *current* pixel coordinate of the (0,0) data origin
-        int scrolledOriginX = originX_base + viewOffsetX;
-        int scrolledOriginY = originY_base + viewOffsetY;
+        int scrolledOriginX = originX_base;
+        int scrolledOriginY = originY_base;
 
         for (int i = 0; i < dataPoints.size() - 1; i++) {
             // --- Point 1 (Current point) ---
