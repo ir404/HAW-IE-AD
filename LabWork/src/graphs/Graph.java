@@ -13,9 +13,5 @@ public abstract class Graph {
         return colour;
     }
 
-    public void draw() {}
-
-//    public void draw(int viewOffsetX, int viewOffsetY, double scaleX, double scaleY, int originY) {}
-
     public abstract void draw(int viewOffsetX, int viewOffsetY, double scaleX, double scaleY, int originX_base, int originY_base);
 }

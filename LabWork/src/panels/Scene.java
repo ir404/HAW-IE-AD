@@ -7,10 +7,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class Scene {
-    private int width, height;
     private ArrayList<Graph> graphs;
-    private int viewOffsetX = 0;
-    private int viewOffsetY = 0;
 
     private final double SCALE_X = 10.0;
     private final double SCALE_Y = 10.0;
@@ -18,11 +15,17 @@ public class Scene {
     private final int SCROLL_Y = 20;
     private final Color AXIS_COLOUR = Color.BLACK;
 
+    private int defaultViewOffsetX, defaultViewOffsetY;
+    private int width, height, viewOffsetX, viewOffsetY;
 
-    public Scene(int width, int height) {
+    public Scene(int width, int height, int defaultViewOffsetX, int defaultViewOffsetY) {
         this.width = width;
         this.height = height;
         this.graphs = new ArrayList<>();
+        this.defaultViewOffsetX = defaultViewOffsetX;
+        this.defaultViewOffsetY = defaultViewOffsetY;
+        viewOffsetX = defaultViewOffsetX;
+        viewOffsetY = defaultViewOffsetY;
     }
 
     public void addGraph(Graph graph) {
@@ -50,8 +53,8 @@ public class Scene {
     }
 
     public void resetView() {
-        viewOffsetX = 0;
-        viewOffsetY = 0;
+        viewOffsetX = defaultViewOffsetX;
+        viewOffsetY = defaultViewOffsetY;
     }
 
     public void draw() {
