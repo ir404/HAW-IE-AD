@@ -19,7 +19,8 @@ public class TrigPage extends JPanel implements ActionListener {
         trigPageControlPanel.setPreferredSize(new Dimension((int) (width * 0.20), height));
         trigPageControlPanel.getResetViewBtn().addActionListener(this);
         trigPageControlPanel.getGenerateBtn().addActionListener(this);
-
+        trigPageControlPanel.getClearBtn().addActionListener(this);
+        
         super.setLayout(new BorderLayout());
         super.add(graphPanel, BorderLayout.CENTER);
         super.add(trigPageControlPanel, BorderLayout.EAST);
@@ -38,6 +39,9 @@ public class TrigPage extends JPanel implements ActionListener {
             graph.generateData(numPoints);
             graphPanel.getScene().addGraph(graph);
             graphPanel.repaint();
+        } else if(event.getSource() == trigPageControlPanel.getClearBtn()) {
+        	graphPanel.getScene().clearGraph();
+        	graphPanel.repaint();
         }
     }
 }

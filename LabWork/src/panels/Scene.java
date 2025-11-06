@@ -28,7 +28,11 @@ public class Scene {
     public void addGraph(Graph graph) {
         this.graphs.add(graph);
     }
-
+    
+    public void clearGraph() {
+    	this.graphs.clear();
+    }
+    
     public void scrollRight() {
         viewOffsetX -= SCROLL_X;
     }

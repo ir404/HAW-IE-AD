@@ -17,6 +17,7 @@ public class TrigPageControlPanel extends ControlPanel {
     private JRadioButton blueRadioBtn;
     private ButtonGroup colorGroup;
     private JButton generateGraphBtn;
+    private JButton clearBtn;
 
     public TrigPageControlPanel(AppFrame appFrame) {
         super(appFrame);
@@ -28,6 +29,10 @@ public class TrigPageControlPanel extends ControlPanel {
 
     public Color getSelectedColor() {
         return blueRadioBtn.isSelected() ? Color.BLUE : Color.RED;
+    }
+    
+    public JButton getClearBtn() {
+        return clearBtn;
     }
 
     @Override
@@ -55,6 +60,7 @@ public class TrigPageControlPanel extends ControlPanel {
         dataPointsField.setFont(new Font(dataPointsField.getFont().getName(), Font.PLAIN, BODY_FONT_SIZE));
 
         generateGraphBtn = new JButton("Generate");
+        clearBtn= new JButton("Clear graphs");
         resetViewBtn = new JButton("Reset View [R]");
 
         Insets titleInsets = new Insets(15, 8, 15, 8);
@@ -91,11 +97,16 @@ public class TrigPageControlPanel extends ControlPanel {
         gbc.gridy = 5;
         gbc.insets = defaultInsets;
         add(generateGraphBtn, gbc);
+        
+        gbc.gridy = 6;
+        gbc.insets = defaultInsets;
+        add(clearBtn, gbc);
 
         // --- Row 6: Reset Button ---
-        gbc.gridy = 6;
+        gbc.gridy = 7;
         gbc.insets = buttonTopInsets;
         add(resetViewBtn, gbc);
+        
     }
 
     public int getNumDataPoints() {

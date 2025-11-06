@@ -53,11 +53,12 @@ public class LineGraph extends Graph {
         // Calculate the *current* pixel coordinate of the (0,0) data origin
         int scrolledOriginX = originX_base;
         int scrolledOriginY = originY_base;
+        int xOffset = dataPoints.size() / 2;
 
         for (int i = 0; i < dataPoints.size() - 1; i++) {
             // --- Point 1 (Current point) ---
             // Data coordinates
-            double x_data1 = i;
+            double x_data1 = i-xOffset;
             double y_data1 = dataPoints.get(i);
 
             // Pixel coordinates
@@ -66,7 +67,7 @@ public class LineGraph extends Graph {
 
             // --- Point 2 (Next point) ---
             // Data coordinates
-            double x_data2 = i + 1;
+            double x_data2 = (i + 1)-xOffset;
             double y_data2 = dataPoints.get(i + 1);
 
             // Pixel coordinates
