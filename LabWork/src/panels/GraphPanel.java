@@ -11,11 +11,11 @@ public class GraphPanel extends JPanel {
     private int width, height;
     private Scene scene;
 
-    public GraphPanel(int width, int height) {
+    public GraphPanel(int width, int height, int defaultViewOffsetX, int defaultViewOffsetY) {
         this.width = width;
         this.height = height;
         super.setPreferredSize(new Dimension(this.width, this.height));
-        scene = new Scene(this.width, this.height);
+        scene = new Scene(this.width, this.height, defaultViewOffsetX, defaultViewOffsetY);
         setupKeyBindings();
     }
 

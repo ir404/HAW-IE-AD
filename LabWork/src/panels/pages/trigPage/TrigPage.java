@@ -13,7 +13,7 @@ public class TrigPage extends JPanel implements ActionListener {
     private TrigPageControlPanel trigPageControlPanel;
 
     public TrigPage(AppFrame appFrame, int width, int height) {
-        graphPanel = new GraphPanel((int) (width * 0.80), height);
+        graphPanel = new GraphPanel((int) (width * 0.80), height, 0 ,0);
 
         trigPageControlPanel = new TrigPageControlPanel(appFrame);
         trigPageControlPanel.setPreferredSize(new Dimension((int) (width * 0.20), height));
