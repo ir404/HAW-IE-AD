@@ -59,7 +59,7 @@ public abstract class ControlPanel extends JPanel {
         add(resetViewBtn, gbc);
 
         gbc.gridy = 92;
-        gbc.insets = new Insets(5, 8, 5, 8);
+        gbc.insets = new Insets(5, 8, 50, 8);
         add(backBtn, gbc);
     }
 
