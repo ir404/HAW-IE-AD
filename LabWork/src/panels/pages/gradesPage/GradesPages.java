@@ -23,6 +23,7 @@ public class GradesPages extends JPanel implements ActionListener {
         gradesPageControlPanel = new GradesPageControlPanel(appFrame);
         gradesPageControlPanel.setPreferredSize(new Dimension((int) (width * 0.20), height));
         gradesPageControlPanel.getShowBtn().addActionListener(this);
+        gradesPageControlPanel.getResetViewBtn().addActionListener(this);
         super.setLayout(new BorderLayout());
         super.add(graphPanel, BorderLayout.CENTER);
         super.add(gradesPageControlPanel, BorderLayout.EAST);
@@ -36,7 +37,10 @@ public class GradesPages extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == gradesPageControlPanel.getShowBtn()) {
+        if (e.getSource() == gradesPageControlPanel.getResetViewBtn()) {
+            graphPanel.getScene().resetView();
+            graphPanel.repaint();
+        } else if (e.getSource() == gradesPageControlPanel.getShowBtn()) {
             BarGraph graph = getBarGraph();
             graphPanel.getScene().addGraph(graph);
             graphPanel.repaint();

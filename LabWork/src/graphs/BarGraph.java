@@ -19,7 +19,7 @@ public class BarGraph extends Graph {
     }
 
     @Override
-    public void draw(int viewOffsetX, int viewOffsetY, double scaleX, double scaleY, int originXBase, int originYBase) {
+    public void draw(int viewOffsetX, int viewOffsetY, double scaleX, double scaleY, int originX, int originY) {
         scaleX = 2.0;
         scaleY = 2.0;
 
@@ -30,8 +30,8 @@ public class BarGraph extends Graph {
             int barHeight = (int) (frequency * BAR_HEIGHT_PER_UNIT * scaleY);
             int barWidth = (int) (BAR_DATA_WIDTH * scaleX);
             int totalBarSpace = (int) ((BAR_DATA_WIDTH + BAR_DATA_GAP) * scaleX);
-            int barX = originXBase + (category * totalBarSpace);
-            int barTopY = originYBase - barHeight;
+            int barX = originX + (category * totalBarSpace);
+            int barTopY = originY - barHeight;
 
             if (frequency > 0) {
                 Drawing.pen().fillRect(barX, barTopY, barWidth, barHeight);

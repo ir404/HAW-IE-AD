@@ -58,19 +58,18 @@ public class Scene {
     }
 
     public void draw() {
-        drawAxesAndMarkers();
-    }
-
-    private void drawAxesAndMarkers() {
         int originX = (width / 2) + viewOffsetX;
         int originY = (height / 2) + viewOffsetY;
+        drawAxesAndMarkers(originX, originY);
+        drawGraphs(originX, originY);
+    }
+
+    private void drawAxesAndMarkers(int originX, int originY) {
         Drawing.pen().setColor(AXIS_COLOUR);
         Drawing.pen().drawLine(originX, 0, originX, height);
         Drawing.pen().drawLine(0, originY, width, originY);
 
         // TODO: draw markers on both axis
-
-        drawGraphs(originX, originY);
     }
 
     private void drawGraphs(int originX, int originY) {

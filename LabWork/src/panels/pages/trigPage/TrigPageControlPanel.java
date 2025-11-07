@@ -61,12 +61,10 @@ public class TrigPageControlPanel extends ControlPanel {
 
         generateGraphBtn = new JButton("Generate");
         clearBtn= new JButton("Clear graphs");
-        resetViewBtn = new JButton("Reset View [R]");
 
         Insets titleInsets = new Insets(15, 8, 15, 8);
         Insets defaultInsets = new Insets(5, 8, 5, 8);
         Insets sectionTopInsets = new Insets(15, 8, 5, 8);
-        Insets buttonTopInsets = new Insets(20, 8, 5, 8);
 
         gbc.gridy = 0;
         gbc.gridwidth = 2;
@@ -101,12 +99,6 @@ public class TrigPageControlPanel extends ControlPanel {
         gbc.gridy = 6;
         gbc.insets = defaultInsets;
         add(clearBtn, gbc);
-
-        // --- Row 6: Reset Button ---
-        gbc.gridy = 7;
-        gbc.insets = buttonTopInsets;
-        add(resetViewBtn, gbc);
-        
     }
 
     public int getNumDataPoints() {
