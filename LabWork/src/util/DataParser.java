@@ -30,14 +30,14 @@ public class DataParser {
                 } else if (!line.isEmpty()) {
                     try {
                         String[] parts = line.split(",");
-                        if (parts.length != 2) {
-                            System.err.println("Skipping malformed line: " + line);
-                            continue;
-                        }
-                        String name = parts[0].trim();
-                        int grade = Integer.parseInt(parts[1].trim());
+                        if (parts.length == 2) {
+                            String name = parts[0].trim();
+                            int grade = Integer.parseInt(parts[1].trim());
 
-                        studentList.add(new Student(name, grade));
+                            studentList.add(new Student(name, grade));
+                        } else {
+                            System.err.println("Skipping malformed line: " + line);
+                        }
 
                     } catch (NumberFormatException e) {
                         System.err.println("Skipping line (bad grade format): " + line);

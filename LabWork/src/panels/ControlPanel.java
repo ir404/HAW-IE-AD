@@ -13,9 +13,9 @@ public abstract class ControlPanel extends JPanel {
     protected final int TITLE_FONT_SIZE = 14;
     protected final int BODY_FONT_SIZE = 12;
 
-    protected AppFrame appFrame;
-    protected JButton resetViewBtn;
-    protected JButton backBtn;
+    private AppFrame appFrame;
+    private JButton backBtn;
+    private JButton resetViewBtn;
 
     public ControlPanel(AppFrame appFrame) {
         this.appFrame = appFrame;
@@ -59,7 +59,7 @@ public abstract class ControlPanel extends JPanel {
         add(resetViewBtn, gbc);
 
         gbc.gridy = 92;
-        gbc.insets = new Insets(5, 8, 5, 8);
+        gbc.insets = new Insets(5, 8, 50, 8);
         add(backBtn, gbc);
     }
 

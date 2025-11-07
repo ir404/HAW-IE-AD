@@ -9,9 +9,9 @@ public abstract class Graph {
         this.colour = colour;
     }
 
-    public Color  getColour() {
+    public Color getColour() {
         return colour;
     }
 
-    public abstract void draw(int viewOffsetX, int viewOffsetY, double scaleX, double scaleY, int originX_base, int originY_base);
+    public abstract void draw(int viewOffsetX, int viewOffsetY, double scaleX, double scaleY, int originX, int originY);
 }
