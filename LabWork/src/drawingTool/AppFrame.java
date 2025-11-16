@@ -2,6 +2,7 @@ package drawingTool;
 
 import panels.pages.HomePage;
 import panels.pages.gradesPage.GradesPages;
+import panels.pages.studentGradesPage.StudentGradesPage;
 import panels.pages.trigPage.TrigPage;
 import util.PageName;
 
@@ -14,6 +15,7 @@ public class AppFrame extends JFrame {
     private HomePage homePage;
     private TrigPage trigPage;
     private GradesPages gradesPages;
+    private StudentGradesPage studentGradesPage;
     private JPanel mainPanel;
     private CardLayout cardLayout;
 
@@ -28,12 +30,14 @@ public class AppFrame extends JFrame {
         homePage = new HomePage(this);
         trigPage = new TrigPage(this, frameWidth, frameHeight);
         gradesPages = new GradesPages(this, frameWidth, frameHeight);
+        studentGradesPage = new StudentGradesPage(this, frameWidth, frameHeight);
 
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);
         mainPanel.add(homePage, PageName.HOME_PAGE.getValue());
         mainPanel.add(trigPage, PageName.TRIG_PAGE.getValue());
-        mainPanel.add(gradesPages, PageName.COMPANY_STATS_PAGE.getValue());
+        mainPanel.add(gradesPages, PageName.GRADES_PAGE.getValue());
+        mainPanel.add(studentGradesPage, PageName.STUDENT_GRADES_PAGE.getValue());
 
         super.add(mainPanel);
         super.setTitle(title);
