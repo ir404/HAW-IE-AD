@@ -27,6 +27,8 @@ replay_pid*
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
+**/.idea
+*.iml
 
 ### Eclipse ###
 .apt_generated
@@ -52,5 +54,3 @@ bin/
 
 ### Mac OS ###
 .DS_Store
-/LabWork/.idea
-LabWork/LabWork.iml
