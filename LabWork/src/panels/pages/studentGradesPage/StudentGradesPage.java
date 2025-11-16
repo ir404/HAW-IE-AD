@@ -1,14 +1,16 @@
 package panels.pages.studentGradesPage;
 
 import drawingTool.AppFrame;
-import graphs.BarGraph;
+import graphs.Point;
+import graphs.ScatterPlot;
 import panels.GraphPanel;
-import panels.pages.gradesPage.GradesPageControlPanel;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Random;
 
 public class StudentGradesPage extends JPanel implements ActionListener {
     private GraphPanel graphPanel;
@@ -34,7 +36,21 @@ public class StudentGradesPage extends JPanel implements ActionListener {
             graphPanel.getScene().resetView();
             graphPanel.repaint();
         } else if (e.getSource() == studentGradesPageControlPanel.getShowBtn()) {
-            System.out.println("Draw scatter plot...");
+            ArrayList<Point> points = mapStudentDataToGraphPoints();
+            ScatterPlot scatterPlot = new ScatterPlot(Color.RED, points);
+            graphPanel.getScene().addGraph(scatterPlot);
+            graphPanel.repaint();
         }
+    }
+
+    private ArrayList<Point> mapStudentDataToGraphPoints() {
+        ArrayList<Point> points = new ArrayList<>();
+        // TODO: loop through the student-data list and map each grade to a point's y and index to x. Then remove the sample below.
+        points.add(new Point(0, 0));
+        for (int i = 0; i < 100; i++) {
+            int y = new Random().nextInt(16);
+            points.add(new Point(i, y));
+        }
+        return points;
     }
 }
