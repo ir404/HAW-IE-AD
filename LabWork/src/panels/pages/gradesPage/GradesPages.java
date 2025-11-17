@@ -54,7 +54,7 @@ public class GradesPages extends JPanel implements ActionListener {
             x[i] = i;
         }
         for (Student student: studentData) {
-            gradeCount[student.getGrade() - 1] += 1;
+            gradeCount[student.getKey() - 1] += 1;
         }
         System.out.println(Arrays.toString(gradeCount));
 

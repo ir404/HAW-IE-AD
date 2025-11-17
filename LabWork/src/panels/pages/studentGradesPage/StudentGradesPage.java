@@ -4,6 +4,7 @@ import drawingTool.AppFrame;
 import graphs.Point;
 import graphs.ScatterPlot;
 import panels.GraphPanel;
+import util.Student;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,10 +17,21 @@ public class StudentGradesPage extends JPanel implements ActionListener {
     private GraphPanel graphPanel;
     private StudentGradesPageControlPanel studentGradesPageControlPanel;
     // ArrayList to hold Student data
+    private ArrayList<Student> studentData;
 
     public StudentGradesPage(AppFrame appFrame, int width, int height) {
         // initialise student data and randomly generate grades (assign element index as name eg. "student_1", "student_2", etc)
+    	studentData = new ArrayList<>();
+        Random rand = new Random();
+        int numStudents = 100; // Number of students to generate
+        int maxGrade = 15; // Max grade (so random is 0 to 15)
 
+        for (int i = 0; i < numStudents; i++) {
+            String studentName = "student_" + i;
+            int grade = rand.nextInt(maxGrade + 1); // Generates grade 0-15
+            studentData.add(new Student(studentName, grade));
+        }
+    	
         graphPanel = new GraphPanel((int) (width * 0.80), height, -450, 250);
         studentGradesPageControlPanel = new StudentGradesPageControlPanel(appFrame);
         studentGradesPageControlPanel.setPreferredSize(new Dimension((int) (width * 0.20), height));
@@ -47,9 +59,13 @@ public class StudentGradesPage extends JPanel implements ActionListener {
         ArrayList<Point> points = new ArrayList<>();
         // TODO: loop through the student-data list and map each grade to a point's y and index to x. Then remove the sample below.
         points.add(new Point(0, 0));
-        for (int i = 0; i < 100; i++) {
-            int y = new Random().nextInt(16);
-            points.add(new Point(i, y));
+        if (studentData != null) {
+            for (int i = 0; i < studentData.size(); i++) {
+                // Map index to x and grade to y
+                int x = i;
+                int y = studentData.get(i).getKey();
+                points.add(new Point(x, y));
+            }
         }
         return points;
     }
