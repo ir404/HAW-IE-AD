@@ -1,23 +1,25 @@
 import util.Student;
 import util.Node;
 import util.QuickSort;
+import util.RandomStudentsGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class SortTest {
 
-    public static void start(List<Node> data) {
-        System.out.println("\nAfter Sorting using QuickSort:\n");
-        QuickSort sorter=new QuickSort(data);
-         sorter.start();
+    public static void start(ArrayList<Node> data) {
+         System.out.println("\nAfter Sorting using QuickSort:\n");
+         QuickSort sorter=new QuickSort(data);
+         sorter.start(1);
          System.out.println("Comaparisons: "+sorter.getComparisons());
          System.out.println("Swaps: "+sorter.getSwaps());
     }
 
     public static void main(String[] args) {
         // --- Step (d): Store 10 meaningful data sets ---
-        List<Node> studentList = new ArrayList<>();
+        ArrayList<Node> studentList = new ArrayList<>();
         studentList.add(new Student("student_A", 8));
         studentList.add(new Student("student_B", 3));
         studentList.add(new Student("student_C", 12));
@@ -43,6 +45,36 @@ public class SortTest {
         for (Node s : studentList) {
         	Student student=(Student) s;
         	System.out.println(student.getName()+":  "+s.getKey());
+        }
+        
+        //100 runs for now;
+        
+        for(int j=1;j<5;j++) {
+        	long totalComparisons=0;
+            long totalSwaps = 0;
+            int numberOfRuns = 1000;
+            int numberOfStudents=1000;
+        	int method=j;
+        	for (int i=1;i<=numberOfRuns;i++) {
+            	ArrayList<Node> studentData=RandomStudentsGenerator.RandomStudents(numberOfStudents);
+            	
+            	// 2. Create a NEW sorter instance for this run
+                QuickSort sorter = new QuickSort(studentData);
+                
+                // 3. Sort it
+                sorter.start(method);
+                
+                // 4. Add this run's stats to the total
+                totalComparisons += sorter.getComparisons();
+                totalSwaps += sorter.getSwaps();
+            }
+         // --- Part 4: Calculate and Print Averages ---
+            double avgComparisons = (double) totalComparisons / numberOfRuns;
+            double avgSwaps = (double) totalSwaps / numberOfRuns;
+
+            System.out.println("Finished " + numberOfRuns + " runs using median method "+method);
+            System.out.println("Average Comparisons: " + avgComparisons);
+            System.out.println("Average Swaps:       " + avgSwaps+"\n\n");
         }
     }
 }

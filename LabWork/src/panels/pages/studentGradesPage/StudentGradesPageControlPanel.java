@@ -9,6 +9,7 @@ import java.awt.*;
 public class StudentGradesPageControlPanel extends ControlPanel {
     private JLabel titleLabel;
     private JButton showBtn;
+    private JButton sortBtn;
 
     public StudentGradesPageControlPanel(AppFrame appFrame) {
         super(appFrame);
@@ -17,13 +18,18 @@ public class StudentGradesPageControlPanel extends ControlPanel {
     public JButton  getShowBtn() {
         return showBtn;
     }
-
+    
+    public JButton getSortBtn() {
+    	return sortBtn;
+    }
+    
     @Override
     protected void addControls(GridBagConstraints gbc) {
         titleLabel = new JLabel("Individual Student Grades for Math");
         titleLabel.setFont(new Font(titleLabel.getFont().getName(), Font.BOLD, TITLE_FONT_SIZE));
 
         showBtn = new JButton("Show");
+        sortBtn = new JButton("Sort");
 
         Insets titleInsets = new Insets(15, 8, 15, 8);
         Insets defaultInsets = new Insets(5, 8, 5, 8);
@@ -41,5 +47,9 @@ public class StudentGradesPageControlPanel extends ControlPanel {
         gbc.gridy = 3;
         gbc.insets = defaultInsets;
         add(showBtn, gbc);
+        
+        gbc.gridy = 4;
+        gbc.insets = defaultInsets;
+        add(sortBtn, gbc);
     }
 }
