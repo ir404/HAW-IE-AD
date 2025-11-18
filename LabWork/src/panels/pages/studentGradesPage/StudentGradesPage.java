@@ -24,7 +24,7 @@ public class StudentGradesPage extends JPanel implements ActionListener {
 
     public StudentGradesPage(AppFrame appFrame, int width, int height) {
         // initialise student data and randomly generate grades (assign element index as name eg. "student_1", "student_2", etc)
-    	int numStudents=10;// for now10 bcus 1000 students when sorted makes the results too broad like 0000000,11111111,222222 etc
+    	int numStudents=10;// for now 10 bcus 1000 students when sorted makes the results too broad like 0000000,11111111,222222 etc
     	studentData = RandomStudentsGenerator.RandomStudents(numStudents);
         graphPanel = new GraphPanel((int) (width * 0.80), height, -450, 250);
         studentGradesPageControlPanel = new StudentGradesPageControlPanel(appFrame);

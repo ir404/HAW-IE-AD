@@ -4,17 +4,10 @@ import util.Student;
 import util.Node;
 import util.QuickSort;
 import util.RandomStudentsGenerator;
-
 import java.util.ArrayList;
-import java.util.List;
 
 public class SortTest {
-	
-	public SortTest() {
-		
-	}
-	
-    public void start() {
+	public void start() {
         // --- Step (d): Store 10 meaningful data sets ---
         ArrayList<Node> studentList = new ArrayList<>();
         studentList.add(new Student("student_A", 8));
@@ -28,20 +21,20 @@ public class SortTest {
         studentList.add(new Student("student_I", 0));
         studentList.add(new Student("student_J", 7));
 
-        // --- Step (f): Print before ---
+        // --- Print before ---
         System.out.println("--- BEFORE SORTING ---");
         for (Node s : studentList) {
         	Student student=(Student) s;
             System.out.println(student.getName()+":  "+s.getKey());
         }
-
+        //Sorting test data
         System.out.println("\nAfter Sorting using QuickSort:\n");
         QuickSort sorter=new QuickSort(studentList);
         sorter.start(1);
         System.out.println("Comaparisons: "+sorter.getComparisons());
         System.out.println("Swaps: "+sorter.getSwaps());
 
-        // --- Step (f): Print after ---
+        // --- Print after ---
         for (Node s : studentList) {
         	Student student=(Student) s;
         	System.out.println(student.getName()+":  "+s.getKey());
