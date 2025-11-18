@@ -47,7 +47,6 @@ public class DataParser {
                 }
             }
         }
-        System.out.println("Successfully loaded " + studentList.size() + " student records.");
         return studentList;
     }
 }

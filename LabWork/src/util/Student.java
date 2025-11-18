@@ -1,6 +1,6 @@
 package util;
 
-public class Student {
+public class Student implements Node {
     private String name;
     private int grade;
 
@@ -9,7 +9,11 @@ public class Student {
         this.grade = grade;
     }
 
-    public int getGrade() {
+    @Override
+    public int getKey() {
         return grade;
+    }
+    public String getName() {
+    	return this.name;
     }
 }
