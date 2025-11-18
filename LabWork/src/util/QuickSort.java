@@ -65,18 +65,18 @@ public class QuickSort {
             }
             if (r < end) {
                 quickSort(list, r, end);
-            }
-        }
-    }
+            	}
+        	}
+    	}
 	 
-        public void swap(List<Node> list, int i, int j) {
+    	public void swap(List<Node> list, int i, int j) {
             Node temp = list.get(i);
             list.set(i, list.get(j));
             list.set(j, temp);
             this.swaps++;
-        }
+    	}
         
-        public int getMedian(ArrayList<Node> list, int start, int end,int method) {
+    	public int getMedian(ArrayList<Node> list, int start, int end,int method) {
         	switch(method) {
         	case 1:
         		//middle index median
@@ -94,10 +94,10 @@ public class QuickSort {
 				return mid(list.get(start).getKey(),list.get(end).getKey(),list.get(start + (end - start) / 2).getKey());
         	default:
         		return list.get(start + (end - start) / 2).getKey();
-        	}
-        }
+        	}		
+    	}
        
-        public int mid(int start,int end,int mid) {
+    	public int mid(int start,int end,int mid) {
         	int a=start;
         	int b=end;
         	int c=mid;
