@@ -7,7 +7,8 @@ import java.util.ArrayList;
 
 public class ScatterPlot extends Graph {
     private final int MARKER_DIAMETER = 8;
-    private final int GAP = 40;
+    private final int X_GAP = 30;
+    private final int Y_GAP = 40;
     private final int TICK_LENGTH = 3;
     private final int LABEL_PADDING = 5;
     private ArrayList<Point> points;
@@ -24,7 +25,7 @@ public class ScatterPlot extends Graph {
 
         // --- Draw Y-Axis Ticks and Labels ---
         for (int yValue = 0; yValue <= 15; yValue++) {
-            int yPos = originY - (GAP * yValue);
+            int yPos = originY - (Y_GAP * yValue);
             Drawing.pen().drawLine(originX - TICK_LENGTH, yPos, originX, yPos);
 
             String label = Integer.toString(yValue);
@@ -36,8 +37,8 @@ public class ScatterPlot extends Graph {
 
         // --- Draw Points, X-Axis Ticks and Labels ---
         for (Point point: points) {
-            int centerX = originX + (GAP * point.getX());
-            int centerY = originY - (GAP * point.getY());
+            int centerX = originX + (X_GAP * point.getX());
+            int centerY = originY - (Y_GAP * point.getY());
 
             // Calculate the top-left corner for drawing the oval marker
             int circleX = centerX - (MARKER_DIAMETER / 2);
