@@ -19,14 +19,11 @@ public class StudentGradesPage extends JPanel implements ActionListener {
     private ArrayList<Node> studentData;
 
     public StudentGradesPage(AppFrame appFrame, int width, int height) {
-    	int numStudents = 100;
-    	studentData = RandomStudentsGenerator.randomStudents(numStudents);
-
         graphPanel = new GraphPanel((int) (width * 0.80), height, -450, 250);
 
         studentGradesPageControlPanel = new StudentGradesPageControlPanel(appFrame);
         studentGradesPageControlPanel.setPreferredSize(new Dimension((int) (width * 0.20), height));
-        studentGradesPageControlPanel.getShowBtn().addActionListener(this);
+        studentGradesPageControlPanel.getGenerateBtn().addActionListener(this);
         studentGradesPageControlPanel.getSortBtn().addActionListener(this);
         studentGradesPageControlPanel.getResetViewBtn().addActionListener(this);
 
@@ -40,33 +37,25 @@ public class StudentGradesPage extends JPanel implements ActionListener {
         if (e.getSource() == studentGradesPageControlPanel.getResetViewBtn()) {
             graphPanel.getScene().resetView();
             graphPanel.repaint();
-        } else if (e.getSource() == studentGradesPageControlPanel.getShowBtn()) {
-            // TODO: change the show button to Randomly Generate Data
-
+        } else if (e.getSource() == studentGradesPageControlPanel.getGenerateBtn()) {
+            studentData = RandomStudentsGenerator.randomStudents(studentGradesPageControlPanel.getStudentCount());
             ArrayList<Point> points = mapStudentDataToGraphPoints();
             ScatterPlot scatterPlot = new ScatterPlot(Color.RED, points);
+            graphPanel.getScene().clearGraph();
             graphPanel.getScene().addGraph(scatterPlot);
             graphPanel.repaint();
         } else if (e.getSource() == studentGradesPageControlPanel.getSortBtn()) {
-        	graphPanel.getScene().clearGraph();
-        	sort();
-        	ArrayList<Point> points = mapStudentDataToGraphPoints();
-        	ScatterPlot scatterPlot = new ScatterPlot(Color.RED, points);
-            graphPanel.getScene().addGraph(scatterPlot);
-            graphPanel.repaint();
-        }
-    }
-
-    private void sort() {
-        System.out.println("Before sort: ");
-        for (Node n: studentData) {
-            System.out.print(" " + n.getKey() + " - ");
-        }
-    	QuickSort sorter = new QuickSort(studentData);
-    	sorter.start(1);
-        System.out.println("\nAfter sort: ");
-        for (Node n: studentData) {
-            System.out.print(" " + n.getKey() + " - ");
+            if (studentData != null) {
+                graphPanel.getScene().clearGraph();
+                QuickSort sorter = new QuickSort(studentData);
+                sorter.start(1);
+                ArrayList<Point> points = mapStudentDataToGraphPoints();
+                ScatterPlot scatterPlot = new ScatterPlot(Color.RED, points);
+                studentGradesPageControlPanel.setComparisonCount((int) sorter.getComparisons());
+                studentGradesPageControlPanel.setSwapCount((int) sorter.getSwaps());
+                graphPanel.getScene().addGraph(scatterPlot);
+                graphPanel.repaint();
+            }
         }
     }
 
