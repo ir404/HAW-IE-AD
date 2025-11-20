@@ -1,5 +1,8 @@
 package util;
 
+import data.Node;
+import data.Student;
+
 import java.util.ArrayList;
 import java.util.Random;
 

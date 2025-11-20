@@ -4,7 +4,7 @@ import drawingTool.AppFrame;
 import graphs.BarGraph;
 import panels.GraphPanel;
 import util.DataParser;
-import util.Student;
+import data.Student;
 
 import javax.swing.*;
 import java.awt.*;

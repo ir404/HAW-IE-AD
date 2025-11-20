@@ -1,5 +1,7 @@
 package drawingTool;
 
+import sortings.SortTest;
+
 public class Main {
     public static void main(String[] args) {
         SortTest sortTest = new SortTest();

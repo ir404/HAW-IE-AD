@@ -4,7 +4,7 @@ import panels.pages.HomePage;
 import panels.pages.gradesPage.GradesPages;
 import panels.pages.studentGradesPage.StudentGradesPage;
 import panels.pages.trigPage.TrigPage;
-import util.PageName;
+import panels.pages.PageName;
 
 import javax.swing.*;
 import java.awt.*;
@@ -34,10 +34,10 @@ public class AppFrame extends JFrame {
 
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);
-        mainPanel.add(homePage, PageName.HOME_PAGE.getValue());
-        mainPanel.add(trigPage, PageName.TRIG_PAGE.getValue());
-        mainPanel.add(gradesPages, PageName.GRADES_PAGE.getValue());
-        mainPanel.add(studentGradesPage, PageName.STUDENT_GRADES_PAGE.getValue());
+        mainPanel.add(homePage, PageName.HOME_PAGE.getName());
+        mainPanel.add(trigPage, PageName.TRIG_PAGE.getName());
+        mainPanel.add(gradesPages, PageName.GRADES_PAGE.getName());
+        mainPanel.add(studentGradesPage, PageName.STUDENT_GRADES_PAGE.getName());
 
         super.add(mainPanel);
         super.setTitle(title);
@@ -46,6 +46,6 @@ public class AppFrame extends JFrame {
     }
 
     public void showPage(PageName pageName) {
-        cardLayout.show(mainPanel, pageName.getValue());
+        cardLayout.show(mainPanel, pageName.getName());
     }
 }

@@ -1,4 +1,4 @@
-package util;
+package data;
 
 public class Student implements Node {
     private String name;
@@ -9,11 +9,16 @@ public class Student implements Node {
         this.grade = grade;
     }
 
+    public String getName() {
+        return this.name;
+    }
+
+    public int getGrade() {
+        return grade;
+    }
+
     @Override
     public int getKey() {
         return grade;
-    }
-    public String getName() {
-    	return this.name;
     }
 }
