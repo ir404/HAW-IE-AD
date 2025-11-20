@@ -1,4 +1,4 @@
-package util;
+package panels.pages;
 
 public enum PageName {
     HOME_PAGE("Home Page"),
@@ -6,13 +6,13 @@ public enum PageName {
     GRADES_PAGE("Grades Page"),
     STUDENT_GRADES_PAGE("Student Grades Page");
 
-    private String value;
+    private String name;
 
     PageName(String s) {
-        value = s;
+        name = s;
     }
 
-    public String getValue() {
-        return value;
+    public String getName() {
+        return name;
     }
 }

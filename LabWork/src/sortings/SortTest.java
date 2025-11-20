@@ -1,8 +1,7 @@
-package drawingTool;
+package sortings;
 
-import util.Student;
-import util.Node;
-import util.QuickSort;
+import data.Student;
+import data.Node;
 import util.RandomStudentsGenerator;
 import java.util.ArrayList;
 
@@ -30,8 +29,8 @@ public class SortTest {
             System.out.println(" " + student.getName() + ":  " + s.getKey());
         }
 
-        QuickSort sorter = new QuickSort(studentList);
-        sorter.start(1);
+        AbstractSort sorter = new QuickSort(studentList, 1);
+        sorter.start();
         System.out.println("\nAfter sorting using QuickSort:");
         System.out.println(" Comparisons : " + sorter.getComparisons());
         System.out.println(" Swaps       : "+ sorter.getSwaps());
@@ -51,8 +50,8 @@ public class SortTest {
 
             for (int i = 0; i < numberOfRuns; i++) {
                 ArrayList<Node> studentData = RandomStudentsGenerator.randomStudents(numberOfElements);
-                QuickSort sorter = new QuickSort(studentData);
-                sorter.start(medianMethod);
+                AbstractSort sorter = new QuickSort(studentData, medianMethod);
+                sorter.start();
                 totalComparisons += sorter.getComparisons();
                 totalSwaps += sorter.getSwaps();
             }

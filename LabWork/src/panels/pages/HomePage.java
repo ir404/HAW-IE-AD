@@ -1,7 +1,6 @@
 package panels.pages;
 
 import drawingTool.AppFrame;
-import util.PageName;
 
 import javax.swing.*;
 import java.awt.*;
