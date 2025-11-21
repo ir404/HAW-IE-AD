@@ -3,7 +3,7 @@ package sortings;
 import data.Node;
 import java.util.List;
 
-public class SelectionSort extends AbstractSort{
+public class SelectionSort extends AbstractSort {
 
     public SelectionSort(List<Node> listToSort) {
         super(listToSort);

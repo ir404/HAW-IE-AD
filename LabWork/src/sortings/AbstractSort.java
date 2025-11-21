@@ -4,12 +4,12 @@ import data.Node;
 import java.util.List;
 
 public abstract class AbstractSort {
+    private final int DELAY = 25;		// milliseconds
+    
+    private SwapListener listener;
     protected List<Node> data;
     protected long comparisons;
     private long swaps;
-    
-    private SortListener listener;
-    private final int DELAY = 50;		// milliseconds
 
     protected AbstractSort(List<Node> listToSort) {
         data = listToSort;
@@ -31,7 +31,7 @@ public abstract class AbstractSort {
         return swaps;
     }
     
-    public void setListener(SortListener listener) {
+    public void setSwapListener(SwapListener listener) {
         this.listener = listener;
     }
 
@@ -42,7 +42,7 @@ public abstract class AbstractSort {
         swaps++;
         
         if (listener != null) {
-        	listener.onDataChanged();
+        	listener.onNodeSwap();
             try {
                 Thread.sleep(DELAY);
             } catch (InterruptedException e) {
