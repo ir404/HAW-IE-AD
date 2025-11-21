@@ -15,7 +15,7 @@ public class GraphPanel extends JPanel {
         this.width = width;
         this.height = height;
         super.setPreferredSize(new Dimension(this.width, this.height));
-        scene = new Scene(this.width, this.height, defaultViewOffsetX, defaultViewOffsetY);
+        scene = new Scene(this.width + 100, this.height + 100, defaultViewOffsetX, defaultViewOffsetY);
         setupKeyBindings();
     }
 

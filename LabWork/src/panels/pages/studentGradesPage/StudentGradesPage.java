@@ -31,7 +31,7 @@ public class StudentGradesPage extends JPanel implements ActionListener {
     public StudentGradesPage(AppFrame appFrame, int width, int height) {
         points = new ArrayList<>();
 
-        graphPanel = new GraphPanel((int) (width * 0.80), height, -450, 250);
+        graphPanel = new GraphPanel((int) (width * 0.80), height, -500, 250);
         controlPanel = new StudentGradesPageControlPanel(appFrame);
         controlPanel.setPreferredSize(new Dimension((int) (width * 0.20), height));
         controlPanel.getGenerateBtn().addActionListener(this);
@@ -72,10 +72,17 @@ public class StudentGradesPage extends JPanel implements ActionListener {
 
                 // run the sorting algorithm on a separate thread from the UI-thread
                 Thread sortingThread = new Thread(() -> {
-                    controlPanel.getSortBtn().setEnabled(false);			// disable sort button while sorting runs
+                    // disable panel buttons while sorting
+                    controlPanel.getGenerateBtn().setEnabled(false);
+                    controlPanel.getSortBtn().setEnabled(false);
+                    controlPanel.getRevertToOriginalBtn().setEnabled(false);
                     sorter.start();
+
+                    // after sorted re-enable buttons
                     SwingUtilities.invokeLater(() -> {
-                         controlPanel.getSortBtn().setEnabled(true);		// re-enable sort button after sorted
+                        controlPanel.getGenerateBtn().setEnabled(true);
+                        controlPanel.getSortBtn().setEnabled(true);
+                        controlPanel.getRevertToOriginalBtn().setEnabled(true);
                     });
                 });
                 sortingThread.start();
@@ -83,6 +90,8 @@ public class StudentGradesPage extends JPanel implements ActionListener {
         } else if (e.getSource() == controlPanel.getRevertToOriginalBtn()) {
             copyInto(tempOldData, studentData);
             updatePlot();
+            controlPanel.setComparisonCount(0);
+            controlPanel.setSwapCount(0);
         }
     }
 
@@ -90,6 +99,7 @@ public class StudentGradesPage extends JPanel implements ActionListener {
         studentData = RandomStudentsGenerator.randomStudents(length);
         tempOldData = new ArrayList<>(length);
         copyInto(studentData, tempOldData);
+        controlPanel.setNodeCount(studentData.size());
     }
 
     private void copyInto(List<Node> sourceList, List<Node> targetList) {

@@ -13,17 +13,14 @@ public class StudentGradesPageControlPanel extends ControlPanel {
     private final int MAX_STUDENTS = 1000;
     private final int INITIAL_STUDENTS = 100;
 
-    private JLabel titleLabel, sliderLabel, algorithmLabel, comparisonsLabel, swapsLabel;
+    private JLabel titleLabel, sliderLabel, algorithmLabel, comparisonsLabel, swapsLabel, nodeCountLabel;
     private JSlider studentCountSlider;
     private JButton generateBtn, sortBtn, revertToOriginalBtn;
     private JComboBox<String> algorithmDropdown;
-    private int comparisonCount, swapCount;
 
 
     public StudentGradesPageControlPanel(AppFrame appFrame) {
         super(appFrame);
-        comparisonCount = 0;
-        swapCount = 0;
     }
 
     public JButton getGenerateBtn() {
@@ -52,14 +49,16 @@ public class StudentGradesPageControlPanel extends ControlPanel {
         return selected;
     }
 
+    public void setNodeCount(int n) {
+        nodeCountLabel.setText("Number of nodes : " + n);
+    }
+
     public void setComparisonCount(int n) {
-        comparisonCount = n;
-        comparisonsLabel.setText("Number of comparisons : " + comparisonCount);
+        comparisonsLabel.setText("Number of comparisons : " + n);
     }
 
     public void setSwapCount(int n) {
-        swapCount = n;
-        swapsLabel.setText("Number of swaps            : " + swapCount);
+        swapsLabel.setText("Number of swaps            : " + n);
     }
 
     @Override
@@ -98,6 +97,8 @@ public class StudentGradesPageControlPanel extends ControlPanel {
         );
         algorithmDropdown.setSelectedIndex(0);
 
+        nodeCountLabel = new JLabel("");
+        nodeCountLabel.setFont(new Font(titleLabel.getFont().getName(), Font.PLAIN, super.BODY_FONT_SIZE));
         comparisonsLabel = new JLabel("");
         comparisonsLabel.setFont(new Font(titleLabel.getFont().getName(), Font.PLAIN, super.BODY_FONT_SIZE));
         swapsLabel = new JLabel("");
@@ -164,13 +165,15 @@ public class StudentGradesPageControlPanel extends ControlPanel {
         gbc.gridwidth = 2; // Spanning two columns
         gbc.weightx = 0.0; // Reset weight
 
-        // Comparisons label
         gbc.gridy = 7;
+        gbc.insets = defaultInsets;
+        add(nodeCountLabel, gbc);
+
+        gbc.gridy = 8;
         gbc.insets = defaultInsets;
         add(comparisonsLabel, gbc);
 
-        // Swaps label
-        gbc.gridy = 8;
+        gbc.gridy = 9;
         gbc.insets = defaultInsets;
         add(swapsLabel, gbc);
     }
