@@ -23,7 +23,7 @@ public class StudentGradesPage extends JPanel implements ActionListener {
 	private GraphPanel graphPanel;
     private ScatterPlot scatterPlot;
     private ArrayList<Point> points;
-    private StudentGradesPageControlPanel studentGradesPageControlPanel;
+    private StudentGradesPageControlPanel controlPanel;
     private ArrayList<Node> studentData;
     private ArrayList<Node> tempOldData;
     private AbstractSort sorter;
@@ -32,40 +32,55 @@ public class StudentGradesPage extends JPanel implements ActionListener {
         points = new ArrayList<>();
 
         graphPanel = new GraphPanel((int) (width * 0.80), height, -450, 250);
-        studentGradesPageControlPanel = new StudentGradesPageControlPanel(appFrame);
-        studentGradesPageControlPanel.setPreferredSize(new Dimension((int) (width * 0.20), height));
-        studentGradesPageControlPanel.getGenerateBtn().addActionListener(this);
-        studentGradesPageControlPanel.getSortBtn().addActionListener(this);
-        studentGradesPageControlPanel.getRevertToOriginalBtn().addActionListener(this);
-        studentGradesPageControlPanel.getResetViewBtn().addActionListener(this);
+        controlPanel = new StudentGradesPageControlPanel(appFrame);
+        controlPanel.setPreferredSize(new Dimension((int) (width * 0.20), height));
+        controlPanel.getGenerateBtn().addActionListener(this);
+        controlPanel.getSortBtn().addActionListener(this);
+        controlPanel.getRevertToOriginalBtn().addActionListener(this);
+        controlPanel.getResetViewBtn().addActionListener(this);
 
         super.setLayout(new BorderLayout());
         super.add(graphPanel, BorderLayout.CENTER);
-        super.add(studentGradesPageControlPanel, BorderLayout.EAST);
+        super.add(controlPanel, BorderLayout.EAST);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == studentGradesPageControlPanel.getResetViewBtn()) {
+        if (e.getSource() == controlPanel.getResetViewBtn()) {
             graphPanel.getScene().resetView();
             graphPanel.repaint();
-        } else if (e.getSource() == studentGradesPageControlPanel.getGenerateBtn()) {
-            generateStudentData(studentGradesPageControlPanel.getStudentCount());
+        } else if (e.getSource() == controlPanel.getGenerateBtn()) {
+            generateStudentData(controlPanel.getStudentCount());
             updatePlot();
-        } else if (e.getSource() == studentGradesPageControlPanel.getSortBtn()) {
+        } else if (e.getSource() == controlPanel.getSortBtn()) {
             if (studentData != null) {
-                SortAlgorithm selectedSortAlgorithm = studentGradesPageControlPanel.getSortingAlgorithm();
+                SortAlgorithm selectedSortAlgorithm = controlPanel.getSortingAlgorithm();
                 if (selectedSortAlgorithm == SortAlgorithm.QUICK_SORT) {
                     sorter = new QuickSort(studentData, 1);
                 } else {
                     sorter = new SelectionSort(studentData);
                 }
-                sorter.start();
-                studentGradesPageControlPanel.setComparisonCount((int) sorter.getComparisons());
-                studentGradesPageControlPanel.setSwapCount((int) sorter.getSwaps());
-                updatePlot();
+
+                // add a swap listener to update the plot after a swap is made during the sort algorithm
+                sorter.setSwapListener(() -> {
+                	SwingUtilities.invokeLater(() -> {
+                        controlPanel.setComparisonCount((int) sorter.getComparisons());
+                        controlPanel.setSwapCount((int) sorter.getSwaps());
+                        updatePlot();
+                    });
+                });
+
+                // run the sorting algorithm on a separate thread from the UI-thread
+                Thread sortingThread = new Thread(() -> {
+                    controlPanel.getSortBtn().setEnabled(false);			// disable sort button while sorting runs
+                    sorter.start();
+                    SwingUtilities.invokeLater(() -> {
+                         controlPanel.getSortBtn().setEnabled(true);		// re-enable sort button after sorted
+                    });
+                });
+                sortingThread.start();
             }
-        } else if (e.getSource() == studentGradesPageControlPanel.getRevertToOriginalBtn()) {
+        } else if (e.getSource() == controlPanel.getRevertToOriginalBtn()) {
             copyInto(tempOldData, studentData);
             updatePlot();
         }
