@@ -13,12 +13,10 @@ public abstract class ControlPanel extends JPanel {
     protected final int TITLE_FONT_SIZE = 14;
     protected final int BODY_FONT_SIZE = 12;
 
-    private AppFrame appFrame;
     private JButton backBtn;
     private JButton resetViewBtn;
 
     public ControlPanel(AppFrame appFrame) {
-        this.appFrame = appFrame;
         super.setBackground(CONTROL_PANEL_COLOUR);
         super.setLayout(new GridBagLayout());
 

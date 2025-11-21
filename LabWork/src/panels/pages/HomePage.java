@@ -6,7 +6,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class HomePage extends JPanel {
-    private final int BUTTON_WIDTH = 200;
+    private static final long serialVersionUID = 1L;
+	private final int BUTTON_WIDTH = 200;
     private final int BUTTON_HEIGHT = 30;
 
     private JButton option1;

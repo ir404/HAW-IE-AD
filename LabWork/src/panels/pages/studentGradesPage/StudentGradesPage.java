@@ -19,7 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StudentGradesPage extends JPanel implements ActionListener {
-    private GraphPanel graphPanel;
+    private static final long serialVersionUID = 1L;
+	private GraphPanel graphPanel;
     private ScatterPlot scatterPlot;
     private ArrayList<Point> points;
     private StudentGradesPageControlPanel studentGradesPageControlPanel;

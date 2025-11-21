@@ -8,7 +8,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class StudentGradesPageControlPanel extends ControlPanel {
-    private final int MIN_STUDENTS = 10;
+    private static final long serialVersionUID = 1L;
+	private final int MIN_STUDENTS = 10;
     private final int MAX_STUDENTS = 1000;
     private final int INITIAL_STUDENTS = 100;
 

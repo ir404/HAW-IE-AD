@@ -9,7 +9,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class TrigPage extends JPanel implements ActionListener {
-    private GraphPanel graphPanel;
+    private static final long serialVersionUID = 1L;
+	private GraphPanel graphPanel;
     private TrigPageControlPanel trigPageControlPanel;
 
     public TrigPage(AppFrame appFrame, int width, int height) {

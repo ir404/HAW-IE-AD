@@ -14,7 +14,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class GradesPages extends JPanel implements ActionListener {
-    private GraphPanel graphPanel;
+    private static final long serialVersionUID = 1L;
+	private GraphPanel graphPanel;
     private GradesPageControlPanel gradesPageControlPanel;
     private List<Student> studentData;
 

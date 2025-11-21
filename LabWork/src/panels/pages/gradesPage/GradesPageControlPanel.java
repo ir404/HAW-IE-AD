@@ -7,7 +7,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class GradesPageControlPanel extends ControlPanel {
-    private JLabel titleLabel;
+    private static final long serialVersionUID = 1L;
+	private JLabel titleLabel;
     private JButton showBtn;
 
     public GradesPageControlPanel(AppFrame appFrame) {
@@ -27,8 +28,7 @@ public class GradesPageControlPanel extends ControlPanel {
 
         Insets titleInsets = new Insets(15, 8, 15, 8);
         Insets defaultInsets = new Insets(5, 8, 5, 8);
-        Insets sectionTopInsets = new Insets(15, 8, 5, 8);
-
+        
         gbc.gridy = 0;
         gbc.gridwidth = 2;
         gbc.anchor = GridBagConstraints.CENTER;
