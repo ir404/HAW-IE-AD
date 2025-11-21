@@ -60,10 +60,25 @@ public class StudentGradesPage extends JPanel implements ActionListener {
                 } else {
                     sorter = new SelectionSort(studentData);
                 }
-                sorter.start();
-                studentGradesPageControlPanel.setComparisonCount((int) sorter.getComparisons());
-                studentGradesPageControlPanel.setSwapCount((int) sorter.getSwaps());
-                updatePlot();
+                
+                sorter.setListener(() -> {
+                	SwingUtilities.invokeLater(() -> {
+                        studentGradesPageControlPanel.setComparisonCount((int) sorter.getComparisons());
+                        studentGradesPageControlPanel.setSwapCount((int) sorter.getSwaps());
+                        updatePlot();
+                    });
+                });
+                
+                // 3. Run the sort in a separate Thread to prevent UI freezing
+                Thread sortingThread = new Thread(() -> {
+                    // Disable buttons so user doesn't click sort twice while running
+                    studentGradesPageControlPanel.getSortBtn().setEnabled(false);
+                    sorter.start();
+                    SwingUtilities.invokeLater(() -> {
+                         studentGradesPageControlPanel.getSortBtn().setEnabled(true);
+                    });
+                });
+                sortingThread.start();
             }
         } else if (e.getSource() == studentGradesPageControlPanel.getRevertToOriginalBtn()) {
             copyInto(tempOldData, studentData);

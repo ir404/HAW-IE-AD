@@ -21,10 +21,10 @@ public class SelectionSort extends AbstractSort{
             for (int j = i + 1; j < length; j++) {
                 Node next = super.data.get(j);
                 if (next.getKey() < smallest.getKey()) {
-                    super.comparisons += 1;
                     smallest = next;
                     smallestAt = j;
                 }
+                super.comparisons += 1;
             }
             swap(super.data, i, smallestAt);
         }
