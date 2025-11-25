@@ -7,10 +7,11 @@ public class Test {
 		m.addVertex();
 		m.addVertex();
 		m.addVertex();
-		m.addEdge(0, 2, 10);
-		m.addEdge(2, 1, 12);
+		m.addEdge(0, 2, 9);
+		m.addEdge(2, 1, 6);
 		m.print();
-
+		
+		System.out.println("Sum of weights: " + m.sumOfWeights());
 	}
 
 }

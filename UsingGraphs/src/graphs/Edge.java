@@ -1,7 +1,7 @@
 package graphs;
 
 public class Edge {
-	private final int DOES_NOT_EXIST = -1;
+	public final int DOES_NOT_EXIST = -1;
 	
 	private int distance;
 	
