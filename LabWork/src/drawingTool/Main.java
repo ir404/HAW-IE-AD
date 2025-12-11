@@ -1,10 +1,13 @@
 package drawingTool;
 
 import sortings.SortTest;
+import tree.TreeTest;
 
 public class Main {
     public static void main(String[] args) {
         SortTest sortTest = new SortTest();
+        TreeTest treeTest = new TreeTest();
+        treeTest.TestProgram();
         sortTest.start();
         sortTest.generateRandomDataAndSort(1000, 1000);
 
