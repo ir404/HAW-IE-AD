@@ -1,13 +1,20 @@
 package tree;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 
-public class SortedBinaryTree<E> {
+public class SortedBinaryTree<E> implements Iterable<Node> {
     private Node root;
 
     public SortedBinaryTree() {
         this.root = null;
+    }
+    
+    public int getHeight() {
+    	return height(root);
+    }
+    
+    public boolean isBalanced() {
+    	return balanced(root);
     }
 
     public void insert(Node k) {
@@ -17,6 +24,21 @@ public class SortedBinaryTree<E> {
         } else {
             recursiveInsert(root, k, null);
         }
+    }
+    
+    public Node find(int key) {
+    	Node result = null;
+    	Node temp;
+    	boolean found = false;
+    	Iterator<Node> iterator = iterator();
+    	while (!found && iterator.hasNext()) {
+    		temp = iterator.next();
+    		if (temp.getKey() == key) {
+    			found = true;
+    			result = temp;
+    		}
+    	}
+    	return result;
     }
 
     // returns the node with the smallest key in the (sub-)tree that starts at k
@@ -47,6 +69,7 @@ public class SortedBinaryTree<E> {
     }
 
     // enables in-order traversal of the tree
+    @Override
     public Iterator<Node> iterator() {
         return new Iterator<Node>() {
             private Node current = min(root);       // start at the smallest value in the entire tree
@@ -66,19 +89,34 @@ public class SortedBinaryTree<E> {
     }
 
     public void merge(SortedBinaryTree<Node> treeToMerge) {
-        ArrayList<Node> nodesToAdd = new ArrayList<>();
-        Iterator<Node> it = treeToMerge.iterator();
-        while (it.hasNext()) {
-            nodesToAdd.add(it.next());
+        for (Node n : treeToMerge) {
+            System.out.println(n.toString());
+            StudentItem item = new StudentItem(((StudentItem) n).getData());
+            this.insert(item);
         }
-
-        for (Node n : nodesToAdd) {
-            // Clean the node so it doesn't bring old Tree B connections with it
-            n.setParent(null);
-            n.setLeft(null);
-            n.setRight(null);
-            this.insert(n);
-        }
+    }
+    
+    private boolean balanced(Node k) {
+    	boolean check = true;
+    	if (k != null) {
+    		int leftHeight = height(k.getLeft());
+    		int rightHeight = height(k.getRight());
+    		check = Math.abs(leftHeight - rightHeight) <= 1;
+    		
+    		if (check) check = balanced(k.getLeft()) && balanced(k.getRight());
+    	}
+    	return check;
+    }
+    
+    private int height(Node k) {
+    	int height = -1;
+    	if (k != null) {
+    		int leftHeight = height(k.getLeft());
+    		int rightHeight = height(k.getRight());
+    		
+    		height = 1 + Math.max(leftHeight, rightHeight);
+    	}
+    	return height; 
     }
 
     // private helper method
@@ -88,10 +126,8 @@ public class SortedBinaryTree<E> {
             k.setParent(predecessor);
             if (k.getKey() < predecessor.getKey()) {
                 predecessor.setLeft(k);
-                k.setRight(null);
             } else {
                 predecessor.setRight(k);
-                k.setLeft(null);
             }
         }
         else {                                  // RECURSIVE STEP: Keep searching down on both sides
