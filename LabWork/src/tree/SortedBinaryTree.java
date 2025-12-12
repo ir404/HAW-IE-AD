@@ -14,7 +14,7 @@ public class SortedBinaryTree<E> implements Iterable<Node> {
     }
     
     public boolean isBalanced() {
-    	return balanced(root);
+    	return checkBalance(root);
     }
 
     public void insert(Node k) {
@@ -90,22 +90,24 @@ public class SortedBinaryTree<E> implements Iterable<Node> {
 
     public void merge(SortedBinaryTree<Node> treeToMerge) {
         for (Node n : treeToMerge) {
-            System.out.println(n.toString());
             StudentItem item = new StudentItem(((StudentItem) n).getData());
-            this.insert(item);
+            insert(item);
         }
     }
-    
-    private boolean balanced(Node k) {
-    	boolean check = true;
+
+    // checks if a (sub-)tree is balanced by comparing the height of the left and right subtrees at every node
+    private boolean checkBalance(Node k) {
+    	boolean isBalanced = true;
     	if (k != null) {
     		int leftHeight = height(k.getLeft());
     		int rightHeight = height(k.getRight());
-    		check = Math.abs(leftHeight - rightHeight) <= 1;
+    		isBalanced = Math.abs(leftHeight - rightHeight) <= 1;
     		
-    		if (check) check = balanced(k.getLeft()) && balanced(k.getRight());
+    		if (isBalanced) {
+                isBalanced = checkBalance(k.getLeft()) && checkBalance(k.getRight());
+            }
     	}
-    	return check;
+    	return isBalanced;
     }
     
     private int height(Node k) {
@@ -113,7 +115,6 @@ public class SortedBinaryTree<E> implements Iterable<Node> {
     	if (k != null) {
     		int leftHeight = height(k.getLeft());
     		int rightHeight = height(k.getRight());
-    		
     		height = 1 + Math.max(leftHeight, rightHeight);
     	}
     	return height; 

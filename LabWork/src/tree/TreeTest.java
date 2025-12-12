@@ -23,44 +23,34 @@ public class TreeTest {
 
         System.out.println("\n[Class A before merge]:");
         printTree(classA);
+        System.out.println("Height: " + classA.getHeight());
 
         System.out.println("\n[Class B before merge]:");
         printTree(classB);
+        System.out.println("Height: " + classB.getHeight());
 
+        // Merge Class B into Class A
+        System.out.println("\n... Merging Class B into Class A ...");
+        classB.merge(classA);
 
-        System.out.println("\n[Class B balanced?]: " + classB.isBalanced());
-        
-        
-        
+        // Verify the result (Sorted Master List)
+        System.out.println("\n[Master List (Sorted)]:");
+        printTree(classB);
+        System.out.println("Height: " + classB.getHeight());
+        System.out.println("Is balanced? " + classB.isBalanced());
 
-
-        System.out.println("\n[Class B height]: " + classB.getHeight());
-
-//        // Merge Class B into Class A
-//        System.out.println("\n... Merging Class B into Class A ...");
-//        classB.merge(classA);
-//
-//        // Verify the result (Sorted Master List)
-//        System.out.println("\n[Master List (Sorted)]:");
-//        printTree(classB);
-//        
-//        int searchKey = 16;
-//        Node result = classB.find(searchKey);
-//        System.out.println("\n\nFind " + searchKey + " in Class B");
-//        if (result != null) {
-//        	System.out.println("Student name: " + result.toString());
-//        }
-//        else {
-//        	System.out.println("No student with grade " + searchKey);
-//    	}
+        int searchKey = 16;
+        Node result = classB.find(searchKey);
+        System.out.println("\n\nFind " + searchKey + " in Class B");
+        if (result != null) {
+        	System.out.println("Student name: " + result.toString());
+        }
+        else {
+        	System.out.println("No student with grade " + searchKey);
+    	}
     }
 
     public void printTree(SortedBinaryTree<Node> tree) {
-//        Iterator<Node> it = tree.iterator();
-//        while (it.hasNext()) {
-//            System.out.println(it.next());
-//        }
-//        System.out.println();
         for(Node n: tree) {
         	System.out.println(n);
         }
