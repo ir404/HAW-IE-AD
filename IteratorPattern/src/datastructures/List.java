@@ -2,7 +2,7 @@ package datastructures;
 
 import java.util.Iterator;
 
-public class List<E> implements Iterable<E>{
+public abstract class List<E> implements Iterable<E>{
     private Node head;
     private Node tail;
     private int size;
@@ -33,7 +33,12 @@ public class List<E> implements Iterable<E>{
         return size;
     }
 
-    public void add(E value) throws NullPointerException {
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    // inserts to the end of the existing list
+    protected void append(E value) throws NullPointerException {
         if (value == null) {
             throw new NullPointerException();
         }
@@ -49,7 +54,37 @@ public class List<E> implements Iterable<E>{
         size++;
     }
 
-    public boolean remove(E value) throws NullPointerException {
+    protected void addAt(int index, E value) throws IndexOutOfBoundsException, NullPointerException {
+        if (index < 0 || index > size) {
+            throw new IndexOutOfBoundsException();
+        }
+        if (value == null) {
+            throw new NullPointerException();
+        }
+
+        if (isEmpty() || index == size) {
+            append(value);
+        } else {
+            Node node = new Node(value);
+            if (index == 0) {
+                node.next = head;
+                head.previous = node;
+                head = node;
+            } else {
+                Node nodeAt = getNodeAt(index);
+                Node prevNode = nodeAt.previous;
+
+                prevNode.next = node;
+                node.previous = prevNode;
+
+                nodeAt.previous = node;
+                node.next = nodeAt;
+            }
+            size++;
+        }
+    }
+
+    protected boolean remove(E value) throws NullPointerException {
         if (value == null) {
             throw new NullPointerException();
         }
@@ -66,25 +101,11 @@ public class List<E> implements Iterable<E>{
         return removed;
     }
 
-    public E get(int index) throws IndexOutOfBoundsException {
+    protected E get(int index) throws IndexOutOfBoundsException {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException();
         }
-
-        E result;
-        if (index == 0) {
-            result = head.value;
-        } else if (index == size - 1) {
-            result = tail.value;
-        } else {
-            Node current = head;
-            for (int i = 0; i < index; i++) {
-                current = current.next;
-            }
-            result = current.value;
-        }
-
-        return result;
+        return getNodeAt(index).value;
     }
 
     public void print() {
@@ -98,7 +119,7 @@ public class List<E> implements Iterable<E>{
         Node prev = node.previous;
         Node next = node.next;
 
-        if  (prev != null) {
+        if (prev != null) {
             prev.next = next;
         } else {
             head = next;
@@ -111,6 +132,27 @@ public class List<E> implements Iterable<E>{
         }
 
         size--;
+    }
+
+    private Node getNodeAt(int index) throws IndexOutOfBoundsException {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException();
+        }
+
+        Node result;
+        if (index == 0) {
+            result = head;
+        } else if (index == size - 1) {
+            result = tail;
+        }
+        else {
+            Node current = head;
+            for (int i = 0; i < index; i++) {
+                current = current.next;
+            }
+            result = current;
+        }
+        return result;
     }
 
     @Override
