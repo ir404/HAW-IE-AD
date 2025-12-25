@@ -15,7 +15,7 @@ public class Tree {
 	}
 
 	public int parent(int k) {
-		int parentIndex = -1;
+		int parentIndex = DOES_NOT_EXIST;
 		if (k < length) {
 			parentIndex = ((int) Math.ceil(k / 2.0)) - 1;
 		}
@@ -24,13 +24,13 @@ public class Tree {
 	
 	public int left(int k) {
 		int leftIx = 2 * k + 1;
-		if (leftIx >= nodes.length) leftIx = -1;
+		if (leftIx >= nodes.length) leftIx = DOES_NOT_EXIST;
 		return leftIx;
 	}
 	
 	public int right(int k) {
 		int rightIx = 2 * k + 2;
-		if (rightIx >= nodes.length) rightIx = -1; 
+		if (rightIx >= nodes.length) rightIx = DOES_NOT_EXIST;
 		return rightIx;
 	}
 	
