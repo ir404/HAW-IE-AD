@@ -2,11 +2,11 @@ package sortedBinaryTree;
 
 import java.util.Iterator;
 
-public class BinaryTree implements Iterable<Node> {
+public class BinarySearchTree implements Iterable<Node> {
     private Node root;
     private int nodeCount;
 
-    public BinaryTree() {
+    public BinarySearchTree() {
         clear();
     }
 
@@ -25,6 +25,10 @@ public class BinaryTree implements Iterable<Node> {
 
     public boolean isEmpty() {
         return nodeCount == 0;
+    }
+
+    public boolean isBalanced() {
+        return checkBalance(root);
     }
 
     // returns the node with the specified value k
@@ -61,6 +65,21 @@ public class BinaryTree implements Iterable<Node> {
             result = max(root);
         }
         return result;
+    }
+
+    // returns the successor of k in the order of values
+    public Node orderedSuccessor(Node k) {
+        Node successor;
+        if (k.getRight() != null) {
+            successor = min(k.getRight());
+        } else {
+            Node predecessor = k.getParent();
+            while (predecessor != null && predecessor.getValue() <= k.getValue()) {
+                predecessor = predecessor.getParent();
+            }
+            successor = predecessor;
+        }
+        return successor;
     }
 
     // recursive insert
@@ -123,19 +142,20 @@ public class BinaryTree implements Iterable<Node> {
         return current;
     }
 
-    // returns the successor of k in the order of values
-    public Node orderedSuccessor(Node k) {
-        Node successor;
-        if (k.getRight() != null) {
-            successor = min(k.getRight());
-        } else {
-            Node predecessor = k.getParent();
-            while (predecessor != null && predecessor.getValue() <= k.getValue()) {
-                predecessor = predecessor.getParent();
+    // checks if a (sub-)tree is balanced by comparing the height of the left and right subtrees at all nodes
+    // the difference in height should be at most 1 for the tree
+    private boolean checkBalance(Node k) {
+        boolean balanced = true;
+        if (k != null) {
+            int leftHeight = height(k.getLeft());
+            int rightHeight = height(k.getRight());
+            balanced = Math.abs(leftHeight - rightHeight) <= 1;
+
+            if (balanced) {
+                balanced = checkBalance(k.getLeft()) && checkBalance(k.getRight());
             }
-            successor = predecessor;
         }
-        return successor;
+        return balanced;
     }
 
     // returns a one-line string of node values in-order separated by commas

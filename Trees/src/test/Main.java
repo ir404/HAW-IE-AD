@@ -1,6 +1,6 @@
 package test;
 
-import sortedBinaryTree.BinaryTree;
+import sortedBinaryTree.BinarySearchTree;
 import sortedBinaryTree.Node;
 
 public class Main {
@@ -10,7 +10,7 @@ public class Main {
 
 	private static void testBinaryTree() {
 		Node thing = new Node(10);
-		BinaryTree tree = new BinaryTree();
+		BinarySearchTree tree = new BinarySearchTree();
 		tree.add(new Node(9));
 		tree.add(new Node(2));
 		tree.add(thing);
@@ -28,6 +28,7 @@ public class Main {
 		System.out.println("Maximum: " + tree.maximum().getValue());
 		System.out.println("Minimum: " + tree.minium().getValue());
 		System.out.println("Height: " + tree.getHeight());
+		System.out.println("Is balanced: " + tree.isBalanced());
 
 
 		int k = 10;
