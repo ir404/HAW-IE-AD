@@ -24,6 +24,12 @@ public class Main {
 		tree.add(new Node(15));
 
 		System.out.println("Nodes in-order: " + tree);
+		System.out.print("Nodes pre-order: ");
+		tree.printPreOrder();
+		System.out.print("Nodes post-order: ");
+		tree.printPostOrder();
+		System.out.print("Nodes level-order: ");
+		tree.printLevelOrder();
 		System.out.println("Node count: " + tree.getNodeCount());
 		System.out.println("Maximum: " + tree.maximum().getValue());
 		System.out.println("Minimum: " + tree.minium().getValue());
