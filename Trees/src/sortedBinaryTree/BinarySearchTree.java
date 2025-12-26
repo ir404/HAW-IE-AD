@@ -82,10 +82,18 @@ public class BinarySearchTree implements Iterable<Node> {
         return successor;
     }
 
+    public void merge(BinarySearchTree tree) {
+        for (Node k : tree) {
+            add(k);
+        }
+    }
+
     // recursive insert
     private void insert(Node current, Node k, Node predecessor) {
         if (current == null) {
             k.setParent(predecessor);
+            k.setRight(null);
+            k.setLeft(null);
             if (k.getValue() < predecessor.getValue()) {
                 predecessor.setLeft(k);
             } else {

@@ -17,11 +17,11 @@ public class Main {
 		tree.add(new Node(3));
 		tree.add(new Node(15));
 		tree.add(new Node(19));
-		tree.add(new Node(1));
+		tree.add(new Node(18));
 		tree.add(new Node(12));
 		tree.add(new Node(13));
 		tree.add(new Node(8));
-		tree.add(new Node(6));
+		tree.add(new Node(15));
 
 		System.out.println("Nodes in-order: " + tree);
 		System.out.println("Node count: " + tree.getNodeCount());
@@ -36,8 +36,21 @@ public class Main {
 		System.out.println("\nSearching for value " + k + ": " + found);
 
 		System.out.println("Ordered successor of " + k + " is " + tree.orderedSuccessor(thing).getValue());
-		System.out.println("\n\n");
 
+		BinarySearchTree newTree = new BinarySearchTree();
+		newTree.add(new Node(20));
+		newTree.add(new Node(5));
+		newTree.add(new Node(7));
+		newTree.add(new Node(32));
+		newTree.add(new Node(22));
+		newTree.add(new Node(17));
+		newTree.add(new Node(1));
+
+		System.out.println("\n2nd tree nodes in-order: " + newTree);
+		tree.merge(newTree);
+		System.out.println("1st tree after merging 2nd: " + tree);
+
+		System.out.println("\n\n");
 		tree.display();
 	}
 }
