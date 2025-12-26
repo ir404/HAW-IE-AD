@@ -1,6 +1,8 @@
 package sortedBinaryTree;
 
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class BinarySearchTree implements Iterable<Node> {
     private Node root;
@@ -88,6 +90,35 @@ public class BinarySearchTree implements Iterable<Node> {
         }
     }
 
+    public void printPreOrder() {
+        preOrder(root);
+        System.out.println();
+    }
+
+    public void printPostOrder() {
+        postOrder(root);
+        System.out.println();
+    }
+
+    public void printLevelOrder() {
+        Queue<Node> queue = new LinkedList<>();         // java.util.Queue is an interface
+        Node k;
+
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            k = queue.poll();                           // equivalent to pop
+            System.out.print(k.getValue() + ", ");
+
+            if (k.getLeft() != null) {
+                queue.add(k.getLeft());
+            }
+            if (k.getRight() != null) {
+                queue.add(k.getRight());
+            }
+        }
+        System.out.println();
+    }
+
     // recursive insert
     private void insert(Node current, Node k, Node predecessor) {
         if (current == null) {
@@ -164,6 +195,22 @@ public class BinarySearchTree implements Iterable<Node> {
             }
         }
         return balanced;
+    }
+
+    private void preOrder(Node current) {
+        if (current != null) {
+            System.out.print(current.getValue() + ", ");
+            preOrder(current.getLeft());
+            preOrder(current.getRight());
+        }
+    }
+
+    private void postOrder(Node current) {
+        if (current != null) {
+            postOrder(current.getLeft());
+            postOrder(current.getRight());
+            System.out.print(current.getValue() + ", ");
+        }
     }
 
     // returns a one-line string of node values in-order separated by commas
