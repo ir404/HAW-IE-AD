@@ -5,18 +5,26 @@ import java.util.LinkedList;
 
 public class AdjacencyList implements Iterable<Integer> {
     private LinkedList<Integer> adjacencies;
+    private int id;
 
     public AdjacencyList(int id) {
         adjacencies = new LinkedList<>();
-        adjacencies.add(id);
+        this.id = id;
+    }
+
+    public AdjacencyList(int id, AdjacencyList copy) {
+    	this(id);
+    	for (int v: copy) {
+    		add(v);
+    	}
     }
 
     public int getId() {
-        return adjacencies.getFirst();
+        return id;
     }
 
-    public void add(int neighbour) {
-        adjacencies.add(neighbour);
+    public void add(int neighbourVertex) {
+        adjacencies.add(neighbourVertex);
     }
 
     public boolean contains(int vertex) {
@@ -32,12 +40,10 @@ public class AdjacencyList implements Iterable<Integer> {
         return found;
     }
 
-    // was missing
     public int get(int index) {
         return adjacencies.get(index);
     }
 
-    // was missing
     public int size() {
         return adjacencies.size();
     }
@@ -45,8 +51,8 @@ public class AdjacencyList implements Iterable<Integer> {
 
     @Override
     public Iterator<Integer> iterator() {
-        return new Iterator<Integer>() {
-            private int current = 1;        // start from the 2nd element as the first represents just the id
+        return new Iterator<>() {
+            private int current = 0;
 
             @Override
             public boolean hasNext() {
