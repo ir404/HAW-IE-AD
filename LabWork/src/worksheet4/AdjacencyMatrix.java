@@ -1,18 +1,18 @@
 package worksheet4;
 
 public class AdjacencyMatrix {
-	private int [][] adjMAtrix;
+	private int [][] adjMatrix;
 	
 	public AdjacencyMatrix(int[][] adjMatrix) {
-		
+		this.adjMatrix=adjMatrix;
 	}
 	
 	public int get(int v, int u) {
-		return 0;
+		return adjMatrix[v][u];
 	}
 	
 	public int numOfVertices() {
 		// TODO Auto-generated method stub
-		return 0;
+		return adjMatrix.length;
 	}
 }

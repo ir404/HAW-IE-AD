@@ -1,7 +1,7 @@
 package worksheet4;
 
 public class Graph {
-	private AdjacencyMatrix neighboursMAtrix;
+	private AdjacencyMatrix neighboursMatrix;
 	private AdjacencyLists neighboursLists;
 	
 	public Graph(int[][]  adjMatrix) {
