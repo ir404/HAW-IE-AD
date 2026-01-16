@@ -1,6 +1,8 @@
 package worksheet4;
 
-public class AdjacencyList {
+import java.util.Iterator;
+
+public class AdjacencyList implements Iterable<Integer> {
 
 	public boolean contains(int v) {
 		// TODO Auto-generated method stub
@@ -15,6 +17,24 @@ public class AdjacencyList {
 	public int get(int currentIndex) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+	@Override
+	public Iterator<Integer> iterator(){
+		return new Iterator<Integer>(){
+			
+			@Override
+			public boolean hasNext() {
+				// TODO Auto-generated method stub
+				return false;
+			}
+
+			@Override
+			public Integer next() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+			
+		};
 	}
 
 }
