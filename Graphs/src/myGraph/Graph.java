@@ -3,61 +3,74 @@ package myGraph;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 
-public class Graph {
-    private ArrayList<AdjacencyList> adjacencyLists;
-    private HashMap<Integer, String> vertexNames;
+public class Graph<T> {
+    private List<AdjacencyList> adjacencyLists;
+    private HashMap<T, Integer> vertexToIndex;
+    private List<T> indexToVertex;
     private int vertexCount;
 
-    public Graph(int vertexCount) {
-        this.vertexCount = vertexCount;
-        vertexNames = new HashMap<>(vertexCount);
+    public Graph() {
+        vertexToIndex = new HashMap<>();
+        indexToVertex = new ArrayList<>();
         adjacencyLists = new ArrayList<>();
-        for (int i = 0; i < vertexCount; i++) {
-            adjacencyLists.add(new AdjacencyList(i));
+    }
+
+    public void addVertex(T vertex) {
+        if (!vertexToIndex.containsKey(vertex)) {
+            int newId = vertexCount;
+            vertexToIndex.put(vertex, newId);
+            indexToVertex.add(vertex);
+            adjacencyLists.add(new AdjacencyList(newId));
+            vertexCount++;
         }
     }
 
-    public void setVertexName(int vertexId, String name) throws IllegalArgumentException {
-        if (vertexId >= 0 && vertexId < vertexCount) {
-            vertexNames.put(vertexId, name);
+    public void addEdge(T from, T to, int weight) throws IllegalArgumentException {
+        Integer fromId = vertexToIndex.get(from);
+        Integer toId = vertexToIndex.get(to);
+
+        if (fromId == null || toId == null) {
+            throw new IllegalArgumentException("Vertex not found! Call addVertex() first.");
         } else {
-            throw new IllegalArgumentException("Vertex Id is invalid");
+            adjacencyLists.get(fromId).add(toId, weight);
         }
     }
 
-    public void addEdge(int from, int to, int distance) {
-        adjacencyLists.get(from).add(to, distance);
-    }
+    public int getDistance(T from, T to) {
+        int distance = 0;
+        Integer fromId = vertexToIndex.get(from);
+        Integer toId = vertexToIndex.get(to);
 
-    public int getDistance(int from, int to) {
-        int distance;
-        ArrayList<Integer> visited = new ArrayList<>();
-        visited.add(from);
-        distance = findPath(from, to, 0, visited);
+        if (fromId == null || toId == null) {
+            distance = -1;
+        } else {
+            ArrayList<Integer> visited = new ArrayList<>();
+            visited.add(fromId);
+            distance = findPath(fromId, toId, distance, visited);
+        }
         return distance;
     }
 
     public void printAdjacencyLists() {
         for (AdjacencyList adjList : adjacencyLists) {
-            System.out.println(getVertexName(adjList.getVertexId()));
+            T vertex = indexToVertex.get(adjList.getVertexId());
+            System.out.println(vertex.toString());
             for (Node neighbour : adjList) {
                 int weight = neighbour.getWeight();
-                System.out.println("|--(" + weight + ")-→ " + getVertexName(neighbour.getDestination()));
+                T destinationVertex = indexToVertex.get(neighbour.getDestination());
+                System.out.println("|--(" + weight + ")-→ " + destinationVertex.toString());
             }
             System.out.println();
         }
     }
 
-    public String getVertexName(int vertexId) {
-        return vertexNames.getOrDefault(vertexId, Integer.toString(vertexId));
-    }
-
     // depth-first-search
-    private int findPath(int current, int target, int currentDist, ArrayList<Integer> visited) {
-        boolean found = (current == target);
+    private int findPath(int currentId, int targetId, int currentDist, ArrayList<Integer> visited) {
+        boolean found = (currentId == targetId);
         int finalDist = -1;
-        AdjacencyList neighbours = adjacencyLists.get(current);
+        AdjacencyList neighbours = adjacencyLists.get(currentId);
 
         if (found) {
             finalDist = currentDist;
@@ -66,12 +79,12 @@ public class Graph {
             while (!found && it.hasNext()) {
                 Node neighbour = it.next();
                 int nextStepDist = currentDist + neighbour.getWeight();
-                if (neighbour.getDestination() == target) {
+                if (neighbour.getDestination() == targetId) {
                     found = true;
                     finalDist = nextStepDist;
                 } else if (!visited.contains(neighbour.getDestination())) {
                     visited.add(neighbour.getDestination());
-                    int result = findPath(neighbour.getDestination(), target, nextStepDist, visited);
+                    int result = findPath(neighbour.getDestination(), targetId, nextStepDist, visited);
                     if (result != -1) {
                         finalDist = result;
                         found = true;

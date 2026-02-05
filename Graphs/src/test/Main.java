@@ -4,28 +4,28 @@ import myGraph.Graph;
 
 public class Main {
     public static void main(String[] args) {
-        Graph cityMap = new Graph(5);
-        cityMap.setVertexName(0, "Hamburg");
-        cityMap.setVertexName(1, "Berlin");
-        cityMap.setVertexName(2, "Dortmund");
-        cityMap.setVertexName(3, "Munich");
-        cityMap.setVertexName(4, "Stuttgart");
+        Graph<String> cityMap = new Graph<>();
+        cityMap.addVertex("Hamburg");
+        cityMap.addVertex("Berlin");
+        cityMap.addVertex("Dortmund");
+        cityMap.addVertex("Munich");
+        cityMap.addVertex("Stuttgart");
 
         // Hamburg (0) connects to Berlin (1) and Dortmund (2)
-        cityMap.addEdge(0, 1, 70);      // Hamburg -> Berlin (70km)
-        cityMap.addEdge(0, 2, 100);     // Hamburg -> Dortmund (100km)
+        cityMap.addEdge("Hamburg", "Berlin", 70);      // Hamburg -> Berlin (70km)
+        cityMap.addEdge("Hamburg", "Dortmund", 100);     // Hamburg -> Dortmund (100km)
 
         // Berlin (1) connects only to Munich (3)
-        cityMap.addEdge(1, 3, 150);     // Berlin -> Munich (150km)
+        cityMap.addEdge("Berlin", "Munich", 150);     // Berlin -> Munich (150km)
 
         // Dortmund (2) has NO outgoing arrows
 
         // Munich (3) connects to Hamburg (0) and Stuttgart (4)
-        cityMap.addEdge(3, 0, 200);     // Munich -> Hamburg (200km)
-        cityMap.addEdge(3, 4, 225);     // Munich -> Stuttgart (225km)
+        cityMap.addEdge("Munich", "Hamburg", 200);     // Munich -> Hamburg (200km)
+        cityMap.addEdge("Munich", "Stuttgart", 225);     // Munich -> Stuttgart (225km)
 
         // Stuttgart (4) connects to Dortmund (2)
-        cityMap.addEdge(4, 2, 125);     // Stuttgart -> Dortmund (125km)
+        cityMap.addEdge("Stuttgart", "Dortmund", 125);     // Stuttgart -> Dortmund (125km)
 
         System.out.println("Neighbours of each vertex:");
         System.out.println("--------------------------");
@@ -33,8 +33,8 @@ public class Main {
 
         System.out.println("\n");
 
-        int start = 0, end = 4;
+        String start = "Hamburg", end = "Stuttgart";
         int distance = cityMap.getDistance(start, end);
-        System.out.println("Path from " + cityMap.getVertexName(start) + " to " + cityMap.getVertexName(end) + ": " + distance);
+        System.out.println("Path from " + start + " to " + end + ": " + distance);
     }
 }
