@@ -10,20 +10,15 @@ package taskOne;
  * - main(String[]): Driver method for testing.
  */
 public class AdjacencyMatrix {
-    private int[][] adjMatrix;
+    private final int[][] adjMatrix;
 
-    public AdjacencyMatrix(int[][] data) {
+    public AdjacencyMatrix(int[][] data) throws IllegalArgumentException {
         int rows = data.length;
         int cols = data[0].length;
         if (rows != cols) {
             throw new IllegalArgumentException("Array passed should be a square matrix!");
         } else {
-            adjMatrix = new int[rows][cols];
-            for (int i = 0; i < rows; i++) {
-                for (int j = 0; j < cols; j++) {
-                    adjMatrix[i][j] = data[i][j];
-                }
-            }
+            adjMatrix = data;
         }
     }
 
