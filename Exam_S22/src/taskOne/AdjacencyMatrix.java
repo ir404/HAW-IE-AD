@@ -12,14 +12,8 @@ package taskOne;
 public class AdjacencyMatrix {
     private final int[][] adjMatrix;
 
-    public AdjacencyMatrix(int[][] data) throws IllegalArgumentException {
-        int rows = data.length;
-        int cols = data[0].length;
-        if (rows != cols) {
-            throw new IllegalArgumentException("Array passed should be a square matrix!");
-        } else {
-            adjMatrix = data;
-        }
+    public AdjacencyMatrix(int[][] data) {
+        adjMatrix = data;
     }
 
     public boolean weightsOfNeighbours(int v, int w) {
